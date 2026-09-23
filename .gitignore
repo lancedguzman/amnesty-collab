@@ -1,0 +1,67 @@
+# Vue.js / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+.pnp.*
+
+# Build output
+dist/
+coverage/
+.vite/
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+
+# Environment files and local settings
+.env
+.env.*
+!.env.example
+local_settings.py
+
+# Media Files
+*.jpg
+*.jpeg
+*.png
+*.gif
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
