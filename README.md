@@ -5,7 +5,7 @@ A Django REST Framework backend with a Vue.js frontend.
 ## Requirements
 
 - Python 3.13 or later
-- Node.js 20 or later and npm for the Vue frontend
+- Node.js 22.22.2 or later (or 24.15.0 or later) and npm for the Vue frontend
 - Docker and Docker Compose (optional)
 
 ## Environment setup
@@ -71,11 +71,12 @@ docker compose down
 
 ## Start the Vue frontend
 
-The frontend uses Vite and should live in a frontend directory with its own `package.json`. Once the Vue frontend is present:
+The Vue 3 frontend is scaffolded with Vite and includes JSX support, Vue Router, Pinia, Oxlint/ESLint, and Prettier. Install its dependencies and format the source:
 
 ```bash
 cd frontend
 npm install
+npm run format
 ```
 
 Create `frontend/.env` with the backend URL:
@@ -91,6 +92,7 @@ npm run dev
 ```
 
 Vite normally serves the frontend at [http://localhost:5173/](http://localhost:5173/).
+The generated frontend also provides `npm run build` for a production build and `npm run lint` for linting.
 
 ## Useful commands
 
