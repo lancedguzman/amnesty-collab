@@ -56,6 +56,8 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+/* Placeholder styling only. To be replaced by UI/UX.
+   Structure/classes below can be restyled freely*/
 .timeline-page {
   max-width: 800px;
   margin: 0 auto;
