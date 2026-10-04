@@ -4,7 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-<<<<<<< Updated upstream
+      path: '/',
+      name: 'LandingPage',
+      component: LandingPage,
+    },
+    {
       path: '/approach',
       name: 'approach',
       component: () => import('../views/ApproachPage.vue'),
@@ -23,12 +27,7 @@ const router = createRouter({
       path: '/faqs',
       name: 'faqs',
       component: () => import('../views/faqsPage.vue'),
-=======
-      path: "",
-      name: "LandingPage",
-      component: LandingPage
->>>>>>> Stashed changes
-    }
+    },
   ],
 })
 
