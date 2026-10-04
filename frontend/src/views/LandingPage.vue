@@ -14,7 +14,7 @@
                     <div id="landing-heading2" data-text="MOVE">MOVE</div>
                 </div>
                 <div id="landing-description">An Amnesty International Philippines Capacity-building and Seed Funding Program for Youth Organizations</div>
-                <button id="apply-button">APPLY</button>
+                <button id="apply-button">APPLY NOW!</button>
             </div>
 
             <div id="right-align">
@@ -715,6 +715,7 @@
   padding: 10px 30px;
   font-family: 'Geist Pixel', sans-serif;
   font-size: 1.125rem;
+  font-weight: 700;
   background: #fae11b;
   border: 3px solid #fae11b;
   box-shadow: 7px 7px 0 #fff;

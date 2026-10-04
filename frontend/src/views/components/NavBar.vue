@@ -100,6 +100,7 @@ function navigateTo(link) {
         padding: 10px clamp(16px, 2.5vw, 30px);
         font-family: 'Geist Pixel', sans-serif;
         font-size: clamp(14px, 1.2vw + 6px, 18px);
+        font-weight: 700;
         white-space: nowrap;
         color: #000000;
         background: #FAE11B;
