@@ -1,15 +1,49 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const open = ref(false)
+const router = useRouter()
+const route = useRoute()
+
 const links = ['Home', 'Our Approach', 'What We Look For', 'Timeline', 'FAQs', 'Contact']
 
-function navigateTo(link) {
+async function navigateTo(link) {
     open.value = false
 
-    if (link === 'What We Look For') {
-        document.getElementById('section3')?.scrollIntoView({ behavior: 'smooth' })
+    switch (link) {
+        case 'Home':
+            router.push('/')
+            break
+        case 'Our Approach':
+            router.push('/approach')
+            break
+        case 'What We Look For':
+            // If not on the landing page, navigate there first before scrolling
+            if (route.path !== '/') {
+                await router.push('/')
+                setTimeout(() => {
+                    document.getElementById('section3')?.scrollIntoView({ behavior: 'smooth' })
+                }, 100)
+            } else {
+                document.getElementById('section3')?.scrollIntoView({ behavior: 'smooth' })
+            }
+            break
+        case 'Timeline':
+            router.push('/timeline')
+            break
+        case 'FAQs':
+            router.push('/faqs')
+            break
+        case 'Contact':
+            // Add contact handling or mailto link here if needed
+            break
     }
+}
+
+function navigateToApply() {
+    open.value = false
+    router.push('/application')
 }
 </script>
 
@@ -37,7 +71,7 @@ function navigateTo(link) {
                 </button>
             </nav>
 
-            <button class="apply-button">APPLY</button>
+            <button class="apply-button" @click="navigateToApply">APPLY</button>
         </div>
     </header>
 </template>
