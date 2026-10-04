@@ -2,7 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: [{
+      path: '/approach',
+      name: 'approach',
+      component: () => import('../views/ApproachPage.vue'),
+    },
+    {
+      path: '/timeline',
+      name: 'timeline',
+      component: () => import('../views/TimelinePage.vue'),
+    },
+  ],
 })
 
 export default router
