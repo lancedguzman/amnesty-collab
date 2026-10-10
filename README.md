@@ -1,106 +1,44 @@
-# Amnesty Collab
+# frontend
 
-A Django REST Framework backend with a Vue.js frontend.
+This template should help get you started developing with Vue 3 in Vite.
 
-## Requirements
+## Recommended IDE Setup
 
-- Python 3.13 or later
-- Node.js 22.22.2 or later (or 24.15.0 or later) and npm for the Vue frontend
-- Docker and Docker Compose (optional)
+[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Environment setup
+## Recommended Browser Setup
 
-Copy the example environment file and update values for your machine:
+- Chromium-based browsers (Chrome, Edge, Brave, etc.):
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
+- Firefox:
+  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
 
-```bash
-cp .env.example .env
-```
+## Customize configuration
 
-For local SQLite development, use these values in `.env`:
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-```env
-DJANGO_SECRET_KEY=replace-with-a-development-secret-key
-DJANGO_DEBUG=True
-DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-DATABASE_ENGINE=django.db.backends.sqlite3
-DATABASE_NAME=db.sqlite3
-VITE_API_URL=http://localhost:8000/api
-```
+## Project Setup
 
-Do not commit `.env` or production secrets.
-
-## Start the Django backend locally
-
-Create and activate a virtual environment, then install the dependencies:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-Apply migrations and start the development server:
-
-```bash
-python manage.py migrate
-python manage.py runserver
-```
-
-The backend is available at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-
-## Start with Docker
-
-The Compose service runs Django on port `8000`:
-
-```bash
-docker compose up --build
-```
-
-Apply migrations from another terminal when the container is running:
-
-```bash
-docker compose exec web python manage.py migrate
-```
-
-Stop the service with:
-
-```bash
-docker compose down
-```
-
-## Start the Vue frontend
-
-The Vue 3 frontend is scaffolded with Vite and includes JSX support, Vue Router, Pinia, Oxlint/ESLint, and Prettier. Install its dependencies and format the source:
-
-```bash
-cd frontend
+```sh
 npm install
-npm run format
 ```
 
-Create `frontend/.env` with the backend URL:
+### Compile and Hot-Reload for Development
 
-```env
-VITE_API_URL=http://localhost:8000/api
-```
-
-Start the frontend development server:
-
-```bash
+```sh
 npm run dev
 ```
 
-Vite normally serves the frontend at [http://localhost:5173/](http://localhost:5173/).
-The generated frontend also provides `npm run build` for a production build and `npm run lint` for linting.
+### Compile and Minify for Production
 
-## Useful commands
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-python manage.py test
-python manage.py createsuperuser
+```sh
+npm run build
 ```
 
-The Django admin is available at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) after creating a superuser.
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
