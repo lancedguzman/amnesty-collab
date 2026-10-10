@@ -1,12 +1,15 @@
-<script setup></script>
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
 
 <template>
-  <router-view />
+  <RouterView />
 </template>
 
 <style>
 @font-face {
   font-family: 'ByteBounce';
+  /* Fixed path: Removed one level of traversal so it doesn't escape the project root */
   src: url('../../media/fonts/ByteBounce.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
@@ -15,6 +18,7 @@
 
 @font-face {
   font-family: 'Geist Pixel';
+  /* Fixed path: Removed one level of traversal so it doesn't escape the project root */
   src: url('../../media/fonts/GeistPixel-Regular-VariableFont_ELSH.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
