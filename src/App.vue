@@ -7,19 +7,19 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style>
+/* Replacing ByteBounce with Arcade Bit */
 @font-face {
   font-family: 'ByteBounce';
-  /* Fixed path: Removed one level of traversal so it doesn't escape the project root */
-  src: url('../../media/fonts/ByteBounce.ttf') format('truetype');
+  src: url('../../media/font/arcade-bit.otf') format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
+/* Replacing Geist Pixel with pixel_st_8px_ru */
 @font-face {
   font-family: 'Geist Pixel';
-  /* Fixed path: Removed one level of traversal so it doesn't escape the project root */
-  src: url('../../media/fonts/GeistPixel-Regular-VariableFont_ELSH.ttf') format('truetype');
+  src: url('../../media/font/pixel_st_8px_ru.off') format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -27,5 +27,6 @@ import { RouterView } from 'vue-router'
 
 body {
   margin: 0;
+  background: #092d5d;
 }
 </style>
