@@ -1,53 +1,76 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import NavBar from './components/NavBar.vue'
 
-const data = ref(null)
-const loading = ref(true)
-const error = ref(null)
-
-onMounted(async () => {
-  try {
-    const res = await fetch('http://localhost:8000/api/approach/')
-    if (!res.ok) throw new Error(`Request failed: ${res.status}`)
-    data.value = await res.json()
-  } catch (err) {
-    error.value = err.message
-  } finally {
-    loading.value = false
-  }
+const data = ref({
+  title: 'Our Approach',
+  intro:
+    'Enter the introduction to your approach here. This text replaces the content that was previously fetched from the database.',
+  points: [
+    'First key point of your approach.',
+    'Second key point of your approach.',
+    'Third key point of your approach.',
+  ],
 })
 </script>
 
 <template>
-  <div class="approach-page">
-    <p v-if="loading">Loading...</p>
-    <p v-else-if="error">Couldn't load content: {{ error }}</p>
+  <NavBar />
+  <div class="page-container">
+    <div class="content-wrapper">
+      <h1 class="page-title">{{ data.title }}</h1>
+      <p class="intro-text">{{ data.intro }}</p>
 
-    <template v-else>
-      <h1>{{ data.title }}</h1>
-      <p class="intro">{{ data.intro }}</p>
-
-      <ul class="points">
+      <ul class="points-list">
         <li v-for="(point, index) in data.points" :key="index">
           {{ point }}
         </li>
       </ul>
-    </template>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Placeholder styling only. To be replaced by UI/UX.
-   Structure/classes below can be restyled freely*/
-.approach-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+.page-container {
+  box-sizing: border-box;
+  min-height: calc(100vh - 76px);
+  display: flex;
+  justify-content: center;
+  padding: 64px clamp(24px, 6vw, 80px);
+  background: #092d5d;
+  color: #fff;
 }
-.intro {
-  margin-bottom: 1.5rem;
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: min(100%, 800px);
 }
-.points li {
-  margin-bottom: 0.75rem;
+.page-title {
+  font-family: 'ByteBounce', sans-serif;
+  font-size: clamp(4rem, 4.5vw, 5rem);
+  color: #fff;
+  text-shadow: 3px 4px 0 #20a5fb;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  line-height: 0.8;
+}
+.intro-text,
+.points-list li {
+  font-family: 'Geist Pixel', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: #fff;
+  text-align: center;
+}
+.points-list {
+  text-align: left;
+  margin-top: 1.5rem;
+  padding-left: 1.5rem;
+}
+.points-list li {
+  text-align: left;
+  margin-bottom: 1rem;
 }
 </style>
