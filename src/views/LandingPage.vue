@@ -147,7 +147,7 @@ import NavBar from './components/NavBar.vue'
           </div>
         </div>
 
-        <div class="heading text-yellow mt-large">Accessibility & Inclusion</div>
+        <div class="heading text-yellow mt-large">INCLUSION</div>
         <div class="accessibility-description text-light">
           We value community connection, clear intent, and readiness to learn together over
           corporate or academic perfection.
@@ -155,14 +155,14 @@ import NavBar from './components/NavBar.vue'
 
         <div class="accessibility-card">
           <div class="accessibility-item">
-            <div class="heading subheader-blue">No Legal Registration Required</div>
+            <div class="heading subheader-blue">NO LEGAL REGISTRATION REQUIRED</div>
             <div class="description text-light">
               You do not need SEC, NYC, YORP, or government accreditation. Unregistered youth
               collectives, student networks, and community-based youth groups are fully eligible.
             </div>
           </div>
           <div class="accessibility-item">
-            <div class="heading subheader-blue">Language Equity</div>
+            <div class="heading subheader-blue">LANGUAGE EQUITY</div>
             <div class="description text-light">
               Applications do not need to be in academic or perfect English. You are welcome to
               write your application in Cebuano, Ilocano, Tagalog, Taglish, English, or your mother
@@ -473,6 +473,14 @@ import NavBar from './components/NavBar.vue'
   flex-grow: 1;
 }
 
+.accessibility-description {
+  font-family: 'Geist Pixel', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 800px;
+}
+
 .accessibility-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -486,7 +494,8 @@ import NavBar from './components/NavBar.vue'
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start; /* Ensure left-alignment */
+  word-break: break-word; /* Prevents overflow from wide pixel fonts */
 }
 
 @media (max-width: 768px) {

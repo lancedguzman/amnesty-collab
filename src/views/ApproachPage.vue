@@ -3,13 +3,16 @@ import { ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 
 const data = ref({
-  title: 'Our Approach',
+  title: 'Our Approach: Revolutionizing Youth Engagement in the Philippines',
   intro:
-    'Enter the introduction to your approach here. This text replaces the content that was previously fetched from the database.',
+    'Young people want real decision-making power, not tokenistic participation! We’re not interested in creating mini-adults. Rather, we support genuine youth-led and youth-owned initiatives that challenge dominant narratives with creative, accessible, and hopeful messages. You’ll enjoy working with us if you want to:',
   points: [
-    'First key point of your approach.',
-    'Second key point of your approach.',
-    'Third key point of your approach.',
+    'Shift from participation to shared power, ensuring children and youth influence decision-making processes.',
+    'Build safe and enabling environments with strong safeguarding protocols, particularly for children and youth.',
+    'Develop age-appropriate engagement approaches tailored specifically to children and youth.',
+    'Counter harmful narratives by promoting children and young people’s rights, agency, and participation.',
+    'Integrate well-being and resilience into engagement strategies.',
+    'Localize approaches to reflect diverse contexts and lived realities.',
   ],
 })
 </script>
@@ -45,22 +48,22 @@ const data = ref({
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  width: min(100%, 800px);
+  width: min(100%, 900px);
 }
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(4rem, 4.5vw, 5rem);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   color: #fff;
-  text-shadow: 3px 4px 0 #20a5fb;
+  text-shadow: 2px 3px 0 #20a5fb;
   margin: 0 0 1rem 0;
   text-align: center;
-  line-height: 0.8;
+  line-height: 1.1;
 }
 .intro-text,
 .points-list li {
   font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.4;
+  font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+  line-height: 1.6;
   color: #fff;
   text-align: center;
 }
@@ -71,6 +74,6 @@ const data = ref({
 }
 .points-list li {
   text-align: left;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 </style>
