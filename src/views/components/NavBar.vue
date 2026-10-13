@@ -176,7 +176,7 @@ function navigateToApply() {
   display: block;
   height: 3px;
   width: 100%;
-  background: #ffffff;
+  background: #092d5d; /* Changed from #ffffff to match dark blue text */
 }
 
 /* Tablet: tighten spacing so all links still fit */

@@ -284,21 +284,26 @@ import NavBar from './components/NavBar.vue'
 #left-align {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 24px;
-  flex: 1 1 0;
+  flex: 1;
+  z-index: 2; /* Ensures text stays clickable if they get close */
 }
+
 #landing-heading {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
+
 #landing-heading1 {
   font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
   font-size: clamp(1.5rem, 5vw, 4rem);
   color: #fff;
 }
+
 #landing-heading2 {
   font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
   font-size: clamp(2.5rem, 20cqi, 9rem);
@@ -324,25 +329,36 @@ import NavBar from './components/NavBar.vue'
   cursor: pointer;
   transition: transform 0.1s;
 }
+
 #apply-button:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 0 #fff;
 }
 
 #right-align {
-  flex: 0 1 440px;
+  flex: 1;
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 500px; /* Constrains the poster from becoming too huge */
 }
+
 .hero-poster {
   width: 100%;
+  height: auto;
   object-fit: contain;
   filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
 }
 
-@media (min-width: 900px) {
+/* Increased breakpoint to 1024px so tablets stack vertically */
+@media (min-width: 1024px) {
   .section1 .content-wrapper {
     flex-direction: row;
+    justify-content: space-between;
+  }
+  #left-align {
+    align-items: flex-start;
+    text-align: left;
   }
 }
 
@@ -507,6 +523,26 @@ import NavBar from './components/NavBar.vue'
   }
   .accessibility-card {
     grid-template-columns: 1fr;
+  }
+}
+
+/* MOBILE FIXES */
+@media (max-width: 899px) {
+  .section-panel {
+    padding: 60px clamp(16px, 4vw, 40px);
+  }
+
+  #left-align {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-poster {
+    max-width: 300px;
+  }
+
+  .card-deck {
+    flex-direction: column;
   }
 }
 
