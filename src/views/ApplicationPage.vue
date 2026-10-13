@@ -74,11 +74,20 @@ import NavBar from './components/NavBar.vue'
 
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(4rem, 4.5vw, 5rem);
+  font-size: clamp(3rem, 4vw, 4.5rem);
   color: #fff;
-  text-shadow: 3px 4px 0 #20a5fb;
+  text-shadow: 2px 3px 0 #20a5fb;
   margin: 0 0 1rem 0;
-  line-height: 0.8;
+  text-align: center;
+
+  /* Increase line-height to fix vertical overlapping */
+  line-height: 1.1;
+
+  /* Add word-spacing to add horizontal space between words */
+  word-spacing: 0.5rem;
+
+  /* Optional: Add letter-spacing if the letters themselves feel too tight */
+  letter-spacing: 2px;
 }
 
 .intro-text {
@@ -119,5 +128,11 @@ import NavBar from './components/NavBar.vue'
 .pixel-apply-btn:focus-visible {
   outline: 3px solid #fae11b;
   outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 40px clamp(16px, 4vw, 32px);
+  }
 }
 </style>

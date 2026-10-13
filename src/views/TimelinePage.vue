@@ -357,4 +357,36 @@ const data = ref({
   opacity: 0.8;
   z-index: 1;
 }
+
+@media (max-width: 768px) {
+  .journey-header h2 {
+    font-size: 2rem;
+  }
+
+  .level-platform {
+    width: 180px;
+  }
+
+  .chibi-img {
+    width: 60px;
+  }
+
+  /* Pull characters inward to prevent horizontal overflow */
+  .chibi-right {
+    right: -10px;
+  }
+
+  .chibi-left {
+    left: -10px;
+  }
+
+  .trophy-center {
+    width: 50px;
+    bottom: 30px;
+  }
+
+  .path-arrow {
+    width: 100px;
+  }
+}
 </style>

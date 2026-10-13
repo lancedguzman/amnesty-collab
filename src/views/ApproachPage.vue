@@ -76,4 +76,10 @@ const data = ref({
   text-align: left;
   margin-bottom: 1.25rem;
 }
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 40px clamp(16px, 4vw, 32px);
+  }
+}
 </style>
