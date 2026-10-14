@@ -1,46 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
 import NavBar from './components/NavBar.vue'
-
-let target = 0
-let current = 0
-let stretchSmooth = 0
-let raf
-
-const onScroll = () => {
-  target = window.scrollY
-}
-
-const loop = () => {
-  current += (target - current) * 0.035
-
-  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-  const progress = Math.min(1, Math.max(0, current / maxScroll))
-
-  const velocity = target - current
-  const stretchTarget = Math.min(0.05, Math.abs(velocity) * 0.0005)
-  stretchSmooth += (stretchTarget - stretchSmooth) * 0.06
-
-  const root = document.documentElement.style
-  root.setProperty('--bg-y', `${-progress * window.innerHeight * 0.2}px`)
-  root.setProperty('--bg-x', `${-progress * window.innerWidth * 0.08}px`)
-  root.setProperty('--bg-stretch', 1 + stretchSmooth)
-
-  raf = requestAnimationFrame(loop)
-}
-
-onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
-  current = target
-  loop()
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-  cancelAnimationFrame(raf)
-})
 </script>
 
 <template>
@@ -91,21 +50,23 @@ onBeforeUnmount(() => {
 <style scoped>
 .page-container {
   box-sizing: border-box;
-  min-height: calc(100vh - 76px);
+  height: calc(100vh - 76px);
   position: relative;
   background: #0b1a40;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px clamp(24px, 6vw, 80px);
+  /* Removed bottom padding (set to 0) so the pole can sit completely flush */
+  padding: 8vh clamp(24px, 6vw, 80px) 0;
   overflow: hidden;
   font-family: 'Geist Pixel', sans-serif;
 }
 
+/* Static Star Background */
 .stars-overlay {
-  position: fixed;
-  inset: -25vh -12vw;
+  position: absolute;
+  inset: 0;
   background-image:
     radial-gradient(1px 1px at 10% 10%, white 100%, transparent),
     radial-gradient(1px 1px at 30% 50%, white 100%, transparent),
@@ -115,8 +76,6 @@ onBeforeUnmount(() => {
   opacity: 0.5;
   pointer-events: none;
   z-index: 0;
-  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
-  will-change: transform;
 }
 
 .content-wrapper {
@@ -124,12 +83,13 @@ onBeforeUnmount(() => {
   z-index: 1;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch; /* Stretches left and right panels to full height */
   justify-content: space-between;
   width: 100%;
+  height: 100%;
   max-width: 1100px;
   gap: clamp(32px, 5vw, 64px);
-  margin-top: 8vh;
+  margin-top: 0;
 }
 
 /* LEFT PANEL */
@@ -173,19 +133,20 @@ onBeforeUnmount(() => {
 .right-panel {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column; /* Allows vertical justification */
+  justify-content: flex-end; /* Anchors the pole directly to the bottom edge */
+  align-items: center;
+  height: 100%;
 }
 
 .pole-container {
   position: relative;
   display: inline-block;
-  max-height: 75vh;
-  margin-top: -3vh;
+  height: 75vh;
 }
 
 .traffic-pole {
-  height: 75vh;
+  height: 100%;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
@@ -204,17 +165,16 @@ onBeforeUnmount(() => {
   filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
 }
 
-/* Adjusted placement to align the first sign properly with the crossbar */
 .sign-faq {
   top: 12%;
   left: 47%;
-  transform: rotate(4deg);
+  transform: rotate(5deg);
 }
 
 .sign-email {
-  top: 31%;
+  top: 32%;
   left: 46%;
-  transform: rotate(4deg);
+  transform: rotate(5deg);
 }
 
 .sign-link:hover {
@@ -232,30 +192,39 @@ onBeforeUnmount(() => {
 .sign-text {
   position: absolute;
   top: 48%;
-  left: 47%;
+  left: 49%;
   transform: translate(-50%, -50%) rotate(-16deg);
   width: 85%;
   color: #fff;
   font-family: 'Geist Pixel', sans-serif;
-  /* Scaled down to fit one line */
-  font-size: clamp(1rem, 2.4vw, 1.5rem);
+  font-size: clamp(1.4rem, 2vh, 1.4rem);
   text-align: center;
   font-weight: bold;
   line-height: 1.4;
-  white-space: nowrap; /* Forces text to stay on a single line */
+  white-space: nowrap;
   text-shadow: 2px 2px 0px #092d5d;
 }
 
 .small-text {
-  /* Scaled down further to fit the longer email address */
-  font-size: clamp(1rem, 1.1vh, 0.9rem);
+  left: 46%;
+  font-size: clamp(0.9rem, 1.5vh, 1.1rem);
+  transform: translate(-50%, -50%) rotate(-16deg);
 }
 
 /* RESPONSIVE LAYOUT */
 @media (max-width: 860px) {
+  .page-container {
+    height: auto;
+    min-height: calc(100vh - 76px);
+    overflow-y: auto;
+    padding-top: 40px;
+    padding-bottom: 0; /* Keeps it flush at the bottom on mobile too */
+  }
+
   .content-wrapper {
     flex-direction: column;
-    margin-top: 2vh;
+    margin-top: 0;
+    height: auto;
   }
 
   .left-panel {
@@ -272,11 +241,7 @@ onBeforeUnmount(() => {
   }
 
   .pole-container {
-    margin-top: 24px;
-    max-height: 60vh;
-  }
-
-  .traffic-pole {
+    margin-top: 48px;
     height: 60vh;
   }
 }
