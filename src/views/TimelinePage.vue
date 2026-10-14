@@ -13,7 +13,7 @@ const revealObserver =
             }
           })
         },
-        { threshold: 0.15 }
+        { threshold: 0.15 },
       )
     : null
 
@@ -30,19 +30,19 @@ const getImageUrl = (filename) => {
 
 const data = ref({
   application_timeline: [
-    { date: 'Oct. 12, 2026', event: 'Applications Open' },
-    { date: 'Oct. 16, 2026', event: 'Virtual Info Session' },
-    { date: 'Nov. 9, 2026', event: 'Applications Close' },
-    { date: 'Nov. 10-13, 2026', event: 'Interview with shortlisted groups' },
-    { date: 'Nov. 17-20, 2026', event: 'Finalizing of Top 6 groups' },
-    { date: 'Nov. 24, 2026', event: 'Announcement of Top 6 groups' },
+    { date: 'Oct. 26, 2026', event: 'Applications Open' },
+    { date: 'Nov. 14, 2026', event: 'Virtual Info Session' },
+    { date: 'Nov. 20, 2026', event: 'Applications Close' },
+    { date: 'Nov. 4-25, 2026', event: 'Interview with shortlisted groups' },
+    { date: 'Nov. 27, 2026', event: 'Finalizing of Top 6 groups' },
+    { date: 'Dec. 1, 2026', event: 'Announcement of Top 6 groups' },
   ],
   journey_levels: [
     {
       level: 'LEVEL ONE',
       name: 'ONLINE LEARNING SERIES',
       summary:
-        'A series of online learning sessions which aims to provide foundational knowledge and skills necessary for further refining project proposals.',
+        'Welcome gathering, campaign essentials, Theory of Change (TOC) drafting, and self-paced modules on Amnesty Academy.',
       chibi: 'chibi-blue.png',
       chibiClass: 'chibi-right',
       platform: 'light-blue-cloud.png',
@@ -63,7 +63,7 @@ const data = ref({
       level: 'LEVEL THREE',
       name: 'MENTORSHIP & PROJECT DEVELOPMENT',
       summary:
-        'Monthly virtual coaching to complete mandatory campaign deliverables: MEL framework and Security Plan (Feb), Communications Plan and Branding Kit (Mar), and Operational Plan (Apr).',
+        'Monthly virtual coaching to complete mandatory campaign deliverables: MEL framework and Risk Mitigation Plan (Feb-Mar), Communications Plan and Branding Kit (Mar), Work Plan, and Budget Requests Plan (Apr).',
       chibi: 'chibi-pink.png',
       chibiClass: 'chibi-right',
       platform: 'dark-blue-cloud.png',
@@ -142,8 +142,16 @@ onBeforeUnmount(() => {
     <div class="stars-overlay"></div>
     <div class="content-wrapper">
       <div class="header-logos">
-        <img src="../../media/assets/amnesty-logo.png" alt="Amnesty International" class="dm-logo amnesty-size" />
-        <img src="../../media/assets/digital-mover-logo.png" alt="Digital Movers" class="dm-logo dm-size" />
+        <img
+          src="../../media/assets/amnesty-logo.png"
+          alt="Amnesty International"
+          class="dm-logo amnesty-size"
+        />
+        <img
+          src="../../media/assets/digital-mover-logo.png"
+          alt="Digital Movers"
+          class="dm-logo dm-size"
+        />
       </div>
 
       <section class="app-timeline-box reveal" v-reveal>
@@ -159,7 +167,11 @@ onBeforeUnmount(() => {
       </section>
 
       <div class="start-section">
-        <img src="../../media/assets/start-header.png" alt="Start Platform" class="start-header-img" />
+        <img
+          src="../../media/assets/start-header.png"
+          alt="Start Platform"
+          class="start-header-img"
+        />
         <div class="platform-container divider-wall">
           <img
             class="level-platform"
@@ -197,7 +209,13 @@ onBeforeUnmount(() => {
             />
           </div>
 
-          <img v-if="level.arrow" :src="getImageUrl(level.arrow)" class="path-arrow reveal" v-reveal alt="Path Arrow" />
+          <img
+            v-if="level.arrow"
+            :src="getImageUrl(level.arrow)"
+            class="path-arrow reveal"
+            v-reveal
+            alt="Path Arrow"
+          />
         </div>
       </section>
     </div>
@@ -443,7 +461,9 @@ onBeforeUnmount(() => {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .reveal.is-visible {
