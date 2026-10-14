@@ -1,5 +1,25 @@
 <script setup>
+import { onMounted } from 'vue'
 import NavBar from './components/NavBar.vue'
+import confetti from 'canvas-confetti'
+
+onMounted(() => {
+  // Check localStorage to see if the user has visited before
+  const hasVisited = localStorage.getItem('hasVisitedLandingPage')
+
+  if (!hasVisited) {
+    // Trigger the confetti effect
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#ffdf01', '#9addf7', '#092d5d', '#ffffff'], // Matches your brand colors
+    })
+
+    // Set the flag so it doesn't trigger on future reloads
+    localStorage.setItem('hasVisitedLandingPage', 'true')
+  }
+})
 </script>
 
 <template>
