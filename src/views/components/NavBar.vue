@@ -36,7 +36,7 @@ async function navigateTo(link) {
       router.push('/faqs')
       break
     case 'Contact':
-      // Add contact handling or mailto link here if needed
+      router.push('/contact')
       break
   }
 }

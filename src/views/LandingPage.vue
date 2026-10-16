@@ -1,41 +1,24 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted } from 'vue'
 import NavBar from './components/NavBar.vue'
-
-let target = 0
-let current = 0
-let stretchSmooth = 0
-let raf
-
-const onScroll = () => {
-  target = window.scrollY
-}
-
-const loop = () => {
-  current += (target - current) * 0.035
-  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-  const progress = Math.min(1, Math.max(0, current / maxScroll))
-  const stretchTarget = Math.min(0.05, Math.abs(target - current) * 0.0005)
-  stretchSmooth += (stretchTarget - stretchSmooth) * 0.06
-
-  const root = document.documentElement.style
-  root.setProperty('--bg-y', `${-progress * window.innerHeight * 0.2}px`)
-  root.setProperty('--bg-x', `${-progress * window.innerWidth * 0.08}px`)
-  root.setProperty('--bg-stretch', 1 + stretchSmooth)
-  raf = requestAnimationFrame(loop)
-}
+import confetti from 'canvas-confetti'
 
 onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
-  current = target
-  loop()
-})
+  // Check localStorage to see if the user has visited before
+  const hasVisited = localStorage.getItem('hasVisitedLandingPage')
 
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-  cancelAnimationFrame(raf)
+  if (!hasVisited) {
+    // Trigger the confetti effect
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#ffdf01', '#9addf7', '#092d5d', '#ffffff'], // Matches your brand colors
+    })
+
+    // Set the flag so it doesn't trigger on future reloads
+    localStorage.setItem('hasVisitedLandingPage', 'true')
+  }
 })
 </script>
 
