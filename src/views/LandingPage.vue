@@ -26,8 +26,9 @@ onMounted(() => {
   <NavBar />
 
   <div class="scrolling-container">
-    <!-- SECTION 1 -->
     <div class="section-panel section1">
+      <div class="stars-overlay"></div>
+      <img class="hero-skyline" src="../../media/assets/bg-skyscrapers.png" alt="" />
       <div class="content-wrapper">
         <div id="left-align">
           <div id="landing-heading">
@@ -38,7 +39,7 @@ onMounted(() => {
             An Amnesty International Philippines Capacity-building and Seed Funding Program for
             Youth Organizations
           </div>
-          <button id="apply-button">APPLY NOW!</button>
+          <RouterLink to="/application" id="apply-button">APPLY NOW!</RouterLink>
         </div>
 
         <div id="right-align">
@@ -51,57 +52,35 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- SECTION 2 -->
     <div class="section-panel section2">
+      <img class="s2-cloud s2-cloud-1" src="../../media/assets/cloud-1.png" alt="" />
+      <img class="s2-cloud s2-cloud-2" src="../../media/assets/cloud-2.png" alt="" />
+      <img class="s2-cloud s2-cloud-3" src="../../media/assets/cloud-3.png" alt="" />
+      <img
+        class="s2-arrow s2-arrow-2"
+        src="../../media/assets/Copy of DIgital Movers Project Timeline _20260930_070215_0000.png"
+        alt=""
+      />
+      <img
+        class="s2-arrow s2-arrow-1"
+        src="../../media/assets/Copy of DIgital Movers Project Timeline _20260930_070215_0001.png"
+        alt=""
+      />
       <div class="content-wrapper">
-        <div class="header">
-          <div class="heading text-yellow">Digital Movers</div>
-          <div class="description text-light">Capacity-building and Seed Funding Program</div>
-        </div>
-
-        <div class="description-grid">
-          <div class="center">
-            <div class="heading subheader-blue">What is Digital movers?</div>
-            <div class="description text-light">
-              Digital Movers is a capacity-building and seed funding program by Amnesty
-              International Philippines (AIPH). We support Filipino youth-led groups and grassroots
-              collectives to launch creative Human Rights Education (HRE) or campaign initiatives.
-              <br />
-              <br />
-              Six youth collectives will start the journey together through online learning and a
-              fully-funded national youth hackathon (Nov 2026 - Jan 2027). <br />
-              <br />
-              Following a pitch showcase at the youth hackathon, the Top 3 finalist groups will
-              receive seed funding and mentorship to run their campaigns through August 2027.
-            </div>
-          </div>
-          <div class="content2-right"></div>
-        </div>
-
-        <div class="card-deck">
-          <div class="card-item pixel-corners white-box">
-            <div class="heading subheader-blue">Evolving Digital Landscape</div>
-            <div class="description">
-              Digital platforms are now a primary civic space for children and young people across
-              the Philippines. However, heavy online engagement also exposes youth to privacy
-              violations, online harm, and state surveillance.
-            </div>
-          </div>
-
-          <div class="card-item pixel-corners white-box">
-            <div class="heading subheader-blue">The Importance of Youth-Led Advocacy</div>
-            <div class="description">
-              The Philippines is home to diverse youth-led groups that champion human rights in
-              their communities. Recognizing young people as experts in their own experiences, the
-              Digital Movers program aims to boost their impact through technical guidance and
-              resources so they can advance their advocacies safely.
-            </div>
-          </div>
-        </div>
+        <img class="s2-logo" src="../../media/assets/logo-digital movers.png" alt="Digital Movers" />
+        <img
+          class="s2-search"
+          src="../../media/assets/textbox-search.png"
+          alt="What is Digital Movers?"
+        />
       </div>
+      <img
+        class="s2-windows"
+        src="../../media/assets/group1.png"
+        alt="Digital Movers is a capacity-building and seed funding program by Amnesty International Philippines (AIPH). We support Filipino youth-led groups and grassroots collectives to launch creative Human Rights Education (HRE) or campaign initiatives. Six youth collectives will start the journey together through online learning and a fully-funded national youth hackathon (Nov 2026 - Jan 2027). Following a pitch showcase at the youth hackathon, the Top 3 finalist groups will receive seed funding and mentorship to run their campaigns through August 2027."
+      />
     </div>
 
-    <!-- SECTION 3 -->
     <div class="section-panel section3">
       <div class="content-wrapper bottom-padding">
         <div class="header">
@@ -191,15 +170,11 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
-      <!-- Skyline added to the bottom of the page -->
-      <div class="skyline-footer"></div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* GLOBAL STYLES & FONTS */
 .text-light {
   color: #fff !important;
 }
@@ -221,7 +196,6 @@ onMounted(() => {
   margin-top: 4rem;
 }
 
-/* PIXEL CORNERS */
 .pixel-corners {
   clip-path: polygon(
     4px 0,
@@ -234,7 +208,6 @@ onMounted(() => {
     0 4px
   );
 }
-
 .white-box {
   background: #fff;
   color: #092d5d;
@@ -244,45 +217,32 @@ onMounted(() => {
   color: #092d5d;
 }
 
-/* PANEL OVERRIDE ANIMATION (Sticky Sections) */
 .scrolling-container {
   position: relative;
 }
 
 .section-panel {
   position: sticky;
-  top: 70px; /* Sits just below the navbar */
+  top: 70px;
   min-height: calc(100vh - 70px);
-  background: #092d5d; /* Uniform dark blue bg */
+  background: #092d5d;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px clamp(24px, 6vw, 80px); /* Increased spacing */
-  box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.4); /* Shadow for overlapping effect */
+  padding: 100px clamp(24px, 6vw, 80px);
+  box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
-.section1 {
-  z-index: 1;
-}
-.section2 {
-  z-index: 2;
-}
 .section3 {
   z-index: 3;
   padding-bottom: 0;
 }
 
-.section1::before {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url('../../../media/assets/StarsLanding.png');
-  background-repeat: repeat;
-  background-size: 768px 768px;
-  content: '';
-  pointer-events: none;
-  opacity: 0.5;
+@media (max-width: 899px) {
+  .section-panel {
+    padding: 60px clamp(16px, 4vw, 40px);
+  }
 }
 
 .content-wrapper {
@@ -297,55 +257,103 @@ onMounted(() => {
 }
 
 .bottom-padding {
-  padding-bottom: 250px; /* Space for the skyline */
+  padding-bottom: 60px;
 }
 
-/* SECTION 1 CONTENT */
+/* Section 1 */
+.section1 {
+  z-index: 1;
+  box-sizing: border-box;
+  background: linear-gradient(#1b2f5e 0%, #0e2a66 60%, #2f5fc4 100%);
+  min-height: calc(100vh - 70px);
+  justify-content: center;
+  padding: clamp(40px, 6vw, 70px) clamp(12px, 2vw, 32px) clamp(60px, 14vw, 180px);
+}
+
+.section1 .content-wrapper {
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  width: min(100%, 1500px);
+}
+
+.stars-overlay {
+  position: fixed;
+  inset: -25vh -12vw;
+  background-image:
+    radial-gradient(2px 2px at 10% 10%, white 100%, transparent),
+    radial-gradient(2px 2px at 30% 50%, white 100%, transparent),
+    radial-gradient(3px 3px at 80% 20%, #9addf7 100%, transparent),
+    radial-gradient(2px 2px at 60% 80%, white 100%, transparent),
+    radial-gradient(2px 2px at 45% 25%, #9addf7 100%, transparent),
+    radial-gradient(2px 2px at 90% 65%, white 100%, transparent);
+  background-size: 260px 260px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
+  will-change: transform;
+}
+
+.hero-skyline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
 #left-align {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 24px;
+  gap: 20px;
   flex: 1;
-  z-index: 2; /* Ensures text stays clickable if they get close */
+  min-width: 0;
+  z-index: 2;
 }
 
 #landing-heading {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 6px;
   width: 100%;
 }
 
 #landing-heading1 {
   font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: clamp(1.5rem, 5vw, 4rem);
+  font-size: clamp(1.5rem, 3.2vw, 3rem);
   color: #fff;
 }
 
 #landing-heading2 {
   font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: clamp(2.5rem, 20cqi, 9rem);
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 1;
   color: #9addf7;
   text-shadow: 4px 6px 0 #063c70;
 }
 
 #landing-description {
   font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.25rem;
+  font-size: clamp(1.15rem, 1.9vw, 1.75rem);
   line-height: 1.5;
   color: #fff;
-  max-width: 700px;
+  max-width: 500px;
 }
 
 #apply-button {
+  display: inline-block;
   padding: 15px 30px;
   font-family: 'Geist Pixel', sans-serif;
   font-size: 1.25rem;
   background: #ffdf01;
   border: 4px solid #fff;
   color: #000;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
   transition: transform 0.1s;
 }
@@ -360,7 +368,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 500px; /* Constrains the poster from becoming too huge */
+  max-width: 518px;
 }
 
 .hero-poster {
@@ -370,7 +378,6 @@ onMounted(() => {
   filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
 }
 
-/* Increased breakpoint to 1024px so tablets stack vertically */
 @media (min-width: 1024px) {
   .section1 .content-wrapper {
     flex-direction: row;
@@ -382,7 +389,72 @@ onMounted(() => {
   }
 }
 
-/* SECTION 2 CONTENT */
+/* Section 2 */
+.section2 {
+  z-index: 2;
+  background: linear-gradient(#20a5fb, #87d0ff);
+  padding-top: 24px;
+}
+
+.section2 .content-wrapper {
+  gap: 20px;
+}
+
+.s2-cloud {
+  position: absolute;
+  width: clamp(140px, 22vw, 340px);
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s2-cloud-1 {
+  top: 5%;
+  left: 6%;
+}
+.s2-cloud-2 {
+  top: 38%;
+  right: -3%;
+}
+.s2-cloud-3 {
+  bottom: 25%;
+  left: 16%;
+  width: clamp(140px, 21vw, 340px);
+}
+
+.s2-arrow {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s2-arrow-1 {
+  top: 10%;
+  left: 64.5%;
+  width: 20%;
+}
+.s2-arrow-2 {
+  top: 39%;
+  left: 5%;
+  width: 22%;
+}
+
+.s2-logo {
+  width: clamp(200px, 24vw, 340px);
+  height: auto;
+}
+.s2-search {
+  width: min(100%, 600px);
+  height: auto;
+}
+.s2-windows {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 700px);
+  height: auto;
+}
+
+/* Section 3 */
 .header {
   text-align: center;
   display: flex;
@@ -400,59 +472,6 @@ onMounted(() => {
   text-align: center;
 }
 
-.description-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 700px) minmax(0, 1fr);
-  gap: 24px;
-  width: 100%;
-}
-.description-grid .center {
-  grid-column: 2;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.content2-right {
-  grid-column: 3;
-  background-image: url('../../../media/assets/GreenCharLanding.png');
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 100%;
-  aspect-ratio: 2/3;
-}
-
-.card-deck {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-}
-.card-item {
-  flex: 1;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.card-item .description {
-  text-align: left;
-}
-
-@media (max-width: 1100px) {
-  .description-grid {
-    grid-template-columns: 1fr;
-  }
-  .description-grid .center,
-  .content2-right {
-    grid-column: 1;
-  }
-  .card-deck {
-    flex-direction: column;
-  }
-}
-
-/* SECTION 3 CONTENT */
 .message-tab {
   display: flex;
   gap: 24px;
@@ -470,6 +489,7 @@ onMounted(() => {
   flex: 1;
   padding: 24px;
 }
+
 .eligibility-list {
   font-family: 'Geist Pixel', sans-serif;
   font-size: 1rem;
@@ -516,7 +536,6 @@ onMounted(() => {
   text-align: center;
   max-width: 800px;
 }
-
 .accessibility-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -530,8 +549,8 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: flex-start; /* Ensure left-alignment */
-  word-break: break-word; /* Prevents overflow from wide pixel fonts */
+  align-items: flex-start;
+  word-break: break-word;
 }
 
 @media (max-width: 768px) {
@@ -546,38 +565,70 @@ onMounted(() => {
   }
 }
 
-/* MOBILE FIXES */
-@media (max-width: 899px) {
-  .section-panel {
-    padding: 60px clamp(16px, 4vw, 40px);
+/* Tablet and mobile */
+@media (max-width: 1023px) {
+  .section1 {
+    position: relative;
+    top: auto;
+    box-sizing: border-box;
+    height: calc(100vh - 70px);
+    height: calc(100svh - 70px);
+    min-height: 0;
+    padding-top: clamp(36px, 7vh, 64px);
+    padding-bottom: clamp(30px, 8vw, 60px);
+  }
+
+  .section1 .content-wrapper {
+    height: 100%;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .hero-skyline {
+    height: clamp(80px, 22vw, 150px);
+    object-fit: cover;
+    object-position: center bottom;
   }
 
   #left-align {
-    align-items: center;
-    text-align: center;
+    flex: 0 0 auto;
+    gap: 10px;
+  }
+  #landing-heading1 {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  #landing-heading2 {
+    font-size: clamp(2.5rem, 13vw, 4.5rem);
+  }
+  #landing-description {
+    font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+    line-height: 1.3;
+  }
+  #apply-button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
   }
 
+  #right-align {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
   .hero-poster {
-    max-width: 300px;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: contain;
+    object-position: center top;
   }
 
-  .card-deck {
-    flex-direction: column;
+  .s2-logo {
+    width: min(72vw, 340px);
+    max-width: 100%;
+    flex-shrink: 0;
   }
-}
-
-/* SKYLINE FOOTER */
-.skyline-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background-image: url('../../../media/assets/CityLanding.png');
-  background-position: bottom center;
-  background-repeat: repeat-x;
-  background-size: auto 100%;
-  pointer-events: none;
-  z-index: 0;
 }
 </style>
