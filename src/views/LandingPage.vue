@@ -5,7 +5,15 @@ import confetti from 'canvas-confetti'
 
 const asset = (name) => new URL(`../../media/assets/${name}`, import.meta.url).href
 
-const cards = [1, 2, 3, 4, 5, 6].map((n) => ({ src: asset(`attribute-${n}.png`) }))
+const altTexts = [
+  "Youth-Led: A Filipino group, organization, or collective whose members are primarily 25 years old and below",
+  'Defined Organizational Structure: consistent membership and leadership setup',
+  'Dedicated Project Team: can delegate 3 to 5 young leaders (aged 15-24)',
+  'Proven Experience: proven track record of running local projects or campaigns',
+  "Focus Areas: human rights, digital rights, children's rights, indigenous people's rights, climate justice, anti-discrimination and inclusion, sexual and reproductive health and rights",
+  'Philippines-based',
+]
+const cards = altTexts.map((alt, i) => ({ src: asset(`attribute-${i + 1}.png`), alt }))
 
 const index = ref(0)
 const perView = ref(3)
@@ -176,29 +184,39 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
             <div class="bottom">Willingness to engage fully in a 9-month journey</div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="heading text-yellow mt-large">INCLUSION</div>
-        <div class="accessibility-description text-light">
+    <div class="section-panel section4">
+      <img class="s4-cloud s4-cloud-1" src="../../media/assets/cloud-2.png" alt="" />
+      <img class="s4-cloud s4-cloud-2" src="../../media/assets/cloud-1.png" alt="" />
+      <img
+        class="s4-buildings"
+        src="../../media/assets/Selection 2026-09-09T12.11.02_20260917_192645_0000 1.png"
+        alt=""
+      />
+      <img class="s4-chibi" src="../../media/assets/chibi-pink-floating.png" alt="" />
+
+      <div class="content-wrapper">
+        <img
+          class="s4-title"
+          src="../../media/assets/accessibility-title.png"
+          alt="Accessibility & Inclusion"
+        />
+        <p class="s4-desc">
           We value community connection, clear intent, and readiness to learn together over
           corporate or academic perfection.
-        </div>
+        </p>
 
-        <div class="accessibility-card">
-          <div class="accessibility-item">
-            <div class="heading subheader-blue">NO LEGAL REGISTRATION REQUIRED</div>
-            <div class="description text-light">
-              You do not need SEC, NYC, YORP, or government accreditation. Unregistered youth
-              collectives, student networks, and community-based youth groups are fully eligible.
-            </div>
-          </div>
-          <div class="accessibility-item">
-            <div class="heading subheader-blue">LANGUAGE EQUITY</div>
-            <div class="description text-light">
-              Applications do not need to be in academic or perfect English. You are welcome to
-              write your application in Cebuano, Ilocano, Tagalog, Taglish, English, or your mother
-              tongue.
-            </div>
-          </div>
+        <div class="s4-cards">
+          <img
+            src="../../media/assets/textbox-blue-2.png"
+            alt="No Legal Registration Required: You do not need SEC, NYC, YORP, or government accreditation. Unregistered youth collectives, student networks, and community-based youth groups are fully eligible."
+          />
+          <img
+            src="../../media/assets/textbox-blue-3.png"
+            alt="Language Equity: Applications do not need to be in academic or perfect English. You are welcome to write your application in Cebuano, Ilocano, Tagalog, Taglish, English, or your mother tongue."
+          />
         </div>
       </div>
     </div>
@@ -206,17 +224,9 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 </template>
 
 <style scoped>
-.text-light {
-  color: #fff !important;
-}
 .text-yellow {
   color: #ffdf01 !important;
   text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.3) !important;
-}
-.subheader-blue {
-  color: #9addf7 !important;
-  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: 2rem;
 }
 .subheader-dark {
   color: #092d5d !important;
@@ -265,12 +275,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   overflow: hidden;
 }
 
-.section3 {
-  z-index: 3;
-  padding-bottom: 0;
-  background: linear-gradient(#7eccfe, #20a5fb);
-}
-
 @media (max-width: 899px) {
   .section-panel {
     padding: 60px clamp(16px, 4vw, 40px);
@@ -286,6 +290,11 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   align-items: center;
   gap: 48px;
   width: min(100%, 1120px);
+}
+
+.heading {
+  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
+  font-size: clamp(3rem, 4.5vw, 4rem);
 }
 
 /* Section 1 */
@@ -483,23 +492,27 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 }
 
 /* Section 3 */
+.section3,
+.section4 {
+  position: relative;
+  top: auto;
+}
+
+.section3 {
+  z-index: 3;
+  padding-bottom: 0;
+  background: linear-gradient(#7eccfe, #20a5fb);
+}
+.section3 .bottom-padding {
+  padding-bottom: clamp(60px, 10vw, 140px);
+}
+
 .header {
   display: flex;
   flex-direction: column;
   gap: 10px;
   text-align: center;
 }
-.heading {
-  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: clamp(3rem, 4.5vw, 4rem);
-}
-.description {
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
 .s3-desc {
   margin: 0 auto;
   max-width: 1000px;
@@ -508,10 +521,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   line-height: 1.3;
   color: #092d5d;
   text-align: center;
-}
-
-.section3 .bottom-padding {
-  padding-bottom: clamp(60px, 10vw, 140px);
 }
 
 .carousel {
@@ -615,36 +624,83 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   flex-grow: 1;
 }
 
-.accessibility-description {
-  max-width: 800px;
+/* Section 4 */
+.section4 {
+  z-index: 4;
+  min-height: 0;
+  padding-top: 50px;
+  padding-bottom: clamp(200px, 26vw, 250px);
+  background: linear-gradient(#20a5fb 0%, #fff 100%);
+}
+.section4 .content-wrapper {
+  gap: 24px;
+  width: min(100%, 1200px);
+}
+
+.s4-title {
+  width: min(100%, 1000px);
+  height: auto;
+}
+.s4-desc {
+  margin: 0;
+  max-width: 900px;
   font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.5;
+  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  line-height: 1.4;
+  color: #fff;
   text-align: center;
 }
-.accessibility-card {
+
+.s4-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: clamp(16px, 3vw, 48px);
+  width: min(100%, 1100px);
+  margin-top: 16px;
+}
+.s4-cards img {
+  display: block;
   width: 100%;
-}
-.accessibility-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 24px 0;
-  border-top: 4px solid #ffdf01;
-  border-bottom: 4px solid #ffdf01;
-  word-break: break-word;
+  height: auto;
 }
 
-@media (max-width: 768px) {
-  .accessibility-card {
-    grid-template-columns: 1fr;
-  }
+.s4-cloud {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s4-cloud-1 {
+  top: 12%;
+  right: -3%;
+  width: clamp(110px, 16vw, 240px);
+}
+.s4-cloud-2 {
+  top: 45%;
+  left: -3%;
+  width: clamp(90px, 12vw, 180px);
 }
 
+.s4-buildings {
+  position: absolute;
+  left: 3%;
+  bottom: 0;
+  height: clamp(180px, 30vw, 440px);
+  width: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s4-chibi {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  height: clamp(160px, 26vw, 380px);
+  width: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tablet and mobile */
 @media (max-width: 1023px) {
   .section1 {
     position: relative;
@@ -712,6 +768,10 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 }
 
 @media (max-width: 767px) {
+  .mt-large {
+    margin-top: 1.5rem;
+  }
+
   .section3 {
     padding: 32px 16px 0;
   }
@@ -721,15 +781,8 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   .section3 .bottom-padding {
     padding-bottom: 90px;
   }
-  .mt-large {
-    margin-top: 1.5rem;
-  }
-
   .section3 .heading {
     font-size: clamp(1.5rem, 8vw, 2.2rem);
-  }
-  .section3 .accessibility-item .heading {
-    font-size: clamp(1.1rem, 5.5vw, 1.5rem);
   }
   .s3-desc {
     font-size: 1rem;
@@ -749,10 +802,8 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
     padding: 0 6px;
   }
   .c-slide img {
-    width: auto;
     max-width: 78%;
     max-height: 62vh;
-    margin: 0 auto;
   }
 
   .selection-cards {
@@ -775,6 +826,38 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   }
   .s3-grass {
     height: 50px;
+  }
+
+  .section4 {
+    padding: 40px 16px 0;
+  }
+  .section4 .content-wrapper {
+    padding-bottom: 150px;
+  }
+  .s4-cards {
+    grid-template-columns: 1fr;
+    width: 75%;
+    margin-top: 0;
+    gap: 14px;
+  }
+  .s4-buildings {
+    left: -12%;
+    height: 270px;
+  }
+  .s4-chibi {
+    left: 50%;
+    right: auto;
+    height: 230px;
+  }
+  .s4-cloud-1 {
+    top: 190px;
+    right: -20px;
+    width: 100px;
+  }
+  .s4-cloud-2 {
+    top: 300px;
+    left: -24px;
+    width: 120px;
   }
 }
 </style>
