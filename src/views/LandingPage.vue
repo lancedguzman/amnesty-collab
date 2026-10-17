@@ -1,25 +1,58 @@
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import NavBar from './components/NavBar.vue'
 import confetti from 'canvas-confetti'
 
-onMounted(() => {
-  // Check localStorage to see if the user has visited before
-  const hasVisited = localStorage.getItem('hasVisitedLandingPage')
+const asset = (name) => new URL(`../../media/assets/${name}`, import.meta.url).href
 
-  if (!hasVisited) {
-    // Trigger the confetti effect
+const altTexts = [
+  "Youth-Led: A Filipino group, organization, or collective whose members are primarily 25 years old and below",
+  'Defined Organizational Structure: consistent membership and leadership setup',
+  'Dedicated Project Team: can delegate 3 to 5 young leaders (aged 15-24)',
+  'Proven Experience: proven track record of running local projects or campaigns',
+  "Focus Areas: human rights, digital rights, children's rights, indigenous people's rights, climate justice, anti-discrimination and inclusion, sexual and reproductive health and rights",
+  'Philippines-based',
+]
+const cards = altTexts.map((alt, i) => ({ src: asset(`attribute-${i + 1}.png`), alt }))
+
+const index = ref(0)
+const perView = ref(3)
+
+const updateView = () => {
+  perView.value = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3
+  index.value = Math.min(index.value, Math.max(0, cards.length - perView.value))
+}
+const next = () => {
+  if (index.value < cards.length - perView.value) index.value++
+}
+const prev = () => {
+  if (index.value > 0) index.value--
+}
+
+let startX = 0
+const onTouchStart = (e) => {
+  startX = e.touches[0].clientX
+}
+const onTouchEnd = (e) => {
+  const dx = e.changedTouches[0].clientX - startX
+  if (Math.abs(dx) > 40) (dx < 0 ? next() : prev())
+}
+
+onMounted(() => {
+  updateView()
+  window.addEventListener('resize', updateView)
+
+  if (!localStorage.getItem('hasVisitedLandingPage')) {
     confetti({
       particleCount: 150,
       spread: 80,
       origin: { y: 0.6 },
-      colors: ['#ffdf01', '#9addf7', '#092d5d', '#ffffff'], // Matches your brand colors
+      colors: ['#ffdf01', '#9addf7', '#092d5d', '#ffffff'],
     })
-
-    // Set the flag so it doesn't trigger on future reloads
     localStorage.setItem('hasVisitedLandingPage', 'true')
   }
 })
+onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 </script>
 
 <template>
@@ -82,44 +115,50 @@ onMounted(() => {
     </div>
 
     <div class="section-panel section3">
+      <img class="s3-cloud s3-cloud-1" src="../../media/assets/cloud-1.png" alt="" />
+      <img class="s3-cloud s3-cloud-2" src="../../media/assets/cloud-2.png" alt="" />
+
       <div class="content-wrapper bottom-padding">
         <div class="header">
           <div class="heading text-yellow">What We Look For</div>
-          <div class="description text-light">
+          <div class="s3-desc">
             Digital Movers supports youth-led groups with new or ongoing campaign ideas that need
             financial resourcing and capacity building
           </div>
         </div>
 
-        <div class="message-tab pixel-corners light-blue-box">
-          <div class="popup-controls"></div>
-          <div class="left-align"></div>
-          <div class="right-align pixel-corners white-box">
-            <div class="heading subheader-blue">Eligibility Requirements</div>
-            <div class="description">
-              <ul class="eligibility-list">
-                <li>
-                  Youth-Led: A Filipino group/organization/collective whose members are primarily 25
-                  years old and below
-                </li>
-                <li>
-                  Defined Organizational Structure: consistent membership and leadership setup
-                </li>
-                <li>Dedicated Project Team: can delegate 3 to 5 young leaders (aged 15-24)</li>
-                <li>
-                  Proven Experience: proven track record of running local projects or campaigns
-                </li>
-                <li>
-                  Focus Areas: human rights, digital rights, children's rights, indigenous people's
-                  rights, climate justice, anti-discrimination and inclusion, sexual and
-                  reproductive health and rights.
-                </li>
-                <li>Philippines-based</li>
-              </ul>
+        <div class="carousel">
+          <button class="c-arrow" :disabled="index === 0" @click="prev" aria-label="Previous">
+            <img src="../../media/assets/arrow2.png" alt="" />
+          </button>
+
+          <div class="c-viewport" @touchstart.passive="onTouchStart" @touchend.passive="onTouchEnd">
+            <div class="c-track" :style="{ transform: `translateX(-${index * (100 / perView)}%)` }">
+              <div
+                class="c-slide"
+                v-for="(c, i) in cards"
+                :key="i"
+                :style="{ flexBasis: 100 / perView + '%' }"
+              >
+                <img :src="c.src" :alt="c.alt" />
+              </div>
             </div>
           </div>
+
+          <button
+            class="c-arrow"
+            :disabled="index >= cards.length - perView"
+            @click="next"
+            aria-label="Next"
+          >
+            <img src="../../media/assets/arrow1.png" alt="" />
+          </button>
         </div>
 
+        <div class="s3-grass"></div>
+      </div>
+
+      <div class="content-wrapper bottom-padding">
         <div class="heading text-yellow mt-large">Selection Criteria</div>
         <div class="selection-cards">
           <div class="items pixel-corners white-box">
@@ -145,29 +184,39 @@ onMounted(() => {
             <div class="bottom">Willingness to engage fully in a 9-month journey</div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="heading text-yellow mt-large">INCLUSION</div>
-        <div class="accessibility-description text-light">
+    <div class="section-panel section4">
+      <img class="s4-cloud s4-cloud-1" src="../../media/assets/cloud-2.png" alt="" />
+      <img class="s4-cloud s4-cloud-2" src="../../media/assets/cloud-1.png" alt="" />
+      <img
+        class="s4-buildings"
+        src="../../media/assets/Selection 2026-09-09T12.11.02_20260917_192645_0000 1.png"
+        alt=""
+      />
+      <img class="s4-chibi" src="../../media/assets/chibi-pink-floating.png" alt="" />
+
+      <div class="content-wrapper">
+        <img
+          class="s4-title"
+          src="../../media/assets/accessibility-title.png"
+          alt="Accessibility & Inclusion"
+        />
+        <p class="s4-desc">
           We value community connection, clear intent, and readiness to learn together over
           corporate or academic perfection.
-        </div>
+        </p>
 
-        <div class="accessibility-card">
-          <div class="accessibility-item">
-            <div class="heading subheader-blue">NO LEGAL REGISTRATION REQUIRED</div>
-            <div class="description text-light">
-              You do not need SEC, NYC, YORP, or government accreditation. Unregistered youth
-              collectives, student networks, and community-based youth groups are fully eligible.
-            </div>
-          </div>
-          <div class="accessibility-item">
-            <div class="heading subheader-blue">LANGUAGE EQUITY</div>
-            <div class="description text-light">
-              Applications do not need to be in academic or perfect English. You are welcome to
-              write your application in Cebuano, Ilocano, Tagalog, Taglish, English, or your mother
-              tongue.
-            </div>
-          </div>
+        <div class="s4-cards">
+          <img
+            src="../../media/assets/textbox-blue-2.png"
+            alt="No Legal Registration Required: You do not need SEC, NYC, YORP, or government accreditation. Unregistered youth collectives, student networks, and community-based youth groups are fully eligible."
+          />
+          <img
+            src="../../media/assets/textbox-blue-3.png"
+            alt="Language Equity: Applications do not need to be in academic or perfect English. You are welcome to write your application in Cebuano, Ilocano, Tagalog, Taglish, English, or your mother tongue."
+          />
         </div>
       </div>
     </div>
@@ -175,17 +224,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.text-light {
-  color: #fff !important;
-}
 .text-yellow {
   color: #ffdf01 !important;
   text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.3) !important;
-}
-.subheader-blue {
-  color: #9addf7 !important;
-  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: 2rem;
 }
 .subheader-dark {
   color: #092d5d !important;
@@ -234,11 +275,6 @@ onMounted(() => {
   overflow: hidden;
 }
 
-.section3 {
-  z-index: 3;
-  padding-bottom: 0;
-}
-
 @media (max-width: 899px) {
   .section-panel {
     padding: 60px clamp(16px, 4vw, 40px);
@@ -256,8 +292,9 @@ onMounted(() => {
   width: min(100%, 1120px);
 }
 
-.bottom-padding {
-  padding-bottom: 60px;
+.heading {
+  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
+  font-size: clamp(3rem, 4.5vw, 4rem);
 }
 
 /* Section 1 */
@@ -455,51 +492,109 @@ onMounted(() => {
 }
 
 /* Section 3 */
+.section3,
+.section4 {
+  position: relative;
+  top: auto;
+}
+
+.section3 {
+  z-index: 3;
+  padding-bottom: 0;
+  background: linear-gradient(#7eccfe, #20a5fb);
+}
+.section3 .bottom-padding {
+  padding-bottom: clamp(60px, 10vw, 140px);
+}
+
 .header {
-  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: center;
 }
-.heading {
-  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: clamp(3rem, 4.5vw, 4rem);
-}
-.description {
+.s3-desc {
+  margin: 0 auto;
+  max-width: 1000px;
   font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.5;
+  font-size: clamp(1rem, 1.4vw, 2rem);
+  line-height: 1.3;
+  color: #092d5d;
   text-align: center;
 }
 
-.message-tab {
+.carousel {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  padding: 24px;
 }
-.message-tab .left-align {
-  flex: 0 0 25%;
-  background-image: url('../../../media/assets/PinkCharLanding.png');
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.message-tab .right-align {
+.c-viewport {
   flex: 1;
-  padding: 24px;
+  overflow: hidden;
+}
+.c-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+.c-slide {
+  flex: 0 0 33.333%;
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+.c-slide img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 300px);
+  margin: 0 auto;
+}
+.c-arrow {
+  flex: 0 0 auto;
+  width: clamp(24px, 4vw, 48px);
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.c-arrow img {
+  display: block;
+  width: 100%;
+}
+.c-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
-.eligibility-list {
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0;
-  padding-left: 1.5rem;
-  text-align: left;
+.s3-cloud {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
 }
-.eligibility-list li {
-  margin-bottom: 8px;
+.s3-cloud-1 {
+  top: 22%;
+  left: -3%;
+  width: clamp(180px, 30vw, 420px);
+}
+.s3-cloud-2 {
+  top: 2%;
+  right: -3%;
+  width: clamp(140px, 22vw, 320px);
+}
+
+.s3-grass {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  width: 100vw;
+  height: clamp(50px, 7vw, 100px);
+  transform: translateX(-50%);
+  background: url('../../../media/assets/grass.png') bottom left / auto 100% repeat-x;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .selection-cards {
@@ -529,40 +624,80 @@ onMounted(() => {
   flex-grow: 1;
 }
 
-.accessibility-description {
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.5;
-  text-align: center;
-  max-width: 800px;
+/* Section 4 */
+.section4 {
+  z-index: 4;
+  min-height: 0;
+  padding-top: 50px;
+  padding-bottom: clamp(200px, 26vw, 250px);
+  background: linear-gradient(#20a5fb 0%, #fff 100%);
 }
-.accessibility-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.section4 .content-wrapper {
   gap: 24px;
-  width: 100%;
-}
-.accessibility-item {
-  padding: 24px 0;
-  border-top: 4px solid #ffdf01;
-  border-bottom: 4px solid #ffdf01;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
-  word-break: break-word;
+  width: min(100%, 1200px);
 }
 
-@media (max-width: 768px) {
-  .message-tab {
-    flex-direction: column;
-  }
-  .message-tab .left-align {
-    min-height: 200px;
-  }
-  .accessibility-card {
-    grid-template-columns: 1fr;
-  }
+.s4-title {
+  width: min(100%, 1000px);
+  height: auto;
+}
+.s4-desc {
+  margin: 0;
+  max-width: 900px;
+  font-family: 'Geist Pixel', sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  line-height: 1.4;
+  color: #fff;
+  text-align: center;
+}
+
+.s4-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3vw, 48px);
+  width: min(100%, 1100px);
+  margin-top: 16px;
+}
+.s4-cards img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.s4-cloud {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s4-cloud-1 {
+  top: 12%;
+  right: -3%;
+  width: clamp(110px, 16vw, 240px);
+}
+.s4-cloud-2 {
+  top: 45%;
+  left: -3%;
+  width: clamp(90px, 12vw, 180px);
+}
+
+.s4-buildings {
+  position: absolute;
+  left: 3%;
+  bottom: 0;
+  height: clamp(180px, 30vw, 440px);
+  width: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+.s4-chibi {
+  position: absolute;
+  right: 6%;
+  bottom: 0;
+  height: clamp(160px, 26vw, 380px);
+  width: auto;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Tablet and mobile */
@@ -629,6 +764,100 @@ onMounted(() => {
     width: min(72vw, 340px);
     max-width: 100%;
     flex-shrink: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .mt-large {
+    margin-top: 1.5rem;
+  }
+
+  .section3 {
+    padding: 32px 16px 0;
+  }
+  .section3 .content-wrapper {
+    gap: 20px;
+  }
+  .section3 .bottom-padding {
+    padding-bottom: 90px;
+  }
+  .section3 .heading {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+  }
+  .s3-desc {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .carousel {
+    gap: 4px;
+  }
+  .c-arrow {
+    width: 24px;
+  }
+  .c-viewport {
+    touch-action: pan-y;
+  }
+  .c-slide {
+    padding: 0 6px;
+  }
+  .c-slide img {
+    max-width: 78%;
+    max-height: 62vh;
+  }
+
+  .selection-cards {
+    flex-direction: column;
+    gap: 14px;
+    overflow: visible;
+  }
+  .selection-cards .items {
+    min-width: 0;
+  }
+
+  .s3-cloud-1 {
+    top: 260px;
+    left: -20px;
+    width: 110px;
+  }
+  .s3-cloud-2 {
+    top: 1%;
+    width: 100px;
+  }
+  .s3-grass {
+    height: 50px;
+  }
+
+  .section4 {
+    padding: 40px 16px 0;
+  }
+  .section4 .content-wrapper {
+    padding-bottom: 150px;
+  }
+  .s4-cards {
+    grid-template-columns: 1fr;
+    width: 75%;
+    margin-top: 0;
+    gap: 14px;
+  }
+  .s4-buildings {
+    left: -12%;
+    height: 270px;
+  }
+  .s4-chibi {
+    left: 50%;
+    right: auto;
+    height: 230px;
+  }
+  .s4-cloud-1 {
+    top: 190px;
+    right: -20px;
+    width: 100px;
+  }
+  .s4-cloud-2 {
+    top: 300px;
+    left: -24px;
+    width: 120px;
   }
 }
 </style>
