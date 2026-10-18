@@ -1,7 +1,20 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 import confetti from 'canvas-confetti'
+import bubbleEquity from '../../media/assets/bubble-equity.png'
+import bubbleStratigic from '../../media/assets/bubble-stratigic.png'
+import bubbleYouth from '../../media/assets/bubble-youth.png'
+import bubbleOpenness from '../../media/assets/bubble-openness.png'
+import bubbleCreative from '../../media/assets/bubble-creative.png'
+
+const bubbleImages = {
+  equity: bubbleEquity,
+  stratigic: bubbleStratigic,
+  youth: bubbleYouth,
+  openness: bubbleOpenness,
+  creative: bubbleCreative,
+}
 
 onMounted(() => {
   // Check localStorage to see if the user has visited before
@@ -19,7 +32,53 @@ onMounted(() => {
     // Set the flag so it doesn't trigger on future reloads
     localStorage.setItem('hasVisitedLandingPage', 'true')
   }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  window.addEventListener('scroll', updateScrollTarget, { passive: true })
+  updateScrollTarget()
+  scrollCurrent = scrollTarget
+  animateStars()
 })
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateScrollTarget)
+  cancelAnimationFrame(animationFrame)
+  document.documentElement.style.removeProperty('--bg-x')
+  document.documentElement.style.removeProperty('--bg-y')
+  document.documentElement.style.removeProperty('--bg-stretch')
+})
+
+const activeSign = ref(null)
+
+let scrollTarget = 0
+let scrollCurrent = 0
+let stretchSmooth = 0
+let animationFrame
+
+const updateScrollTarget = () => {
+  scrollTarget = window.scrollY
+}
+
+const animateStars = () => {
+  scrollCurrent += (scrollTarget - scrollCurrent) * 0.035
+
+  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+  const progress = Math.min(1, Math.max(0, scrollCurrent / maxScroll))
+  const velocity = scrollTarget - scrollCurrent
+  const stretchTarget = Math.min(0.05, Math.abs(velocity) * 0.0005)
+  stretchSmooth += (stretchTarget - stretchSmooth) * 0.06
+
+  const rootStyle = document.documentElement.style
+  rootStyle.setProperty('--bg-y', `${-progress * window.innerHeight * 0.2}px`)
+  rootStyle.setProperty('--bg-x', `${-progress * window.innerWidth * 0.08}px`)
+  rootStyle.setProperty('--bg-stretch', 1 + stretchSmooth)
+
+  animationFrame = requestAnimationFrame(animateStars)
+}
+
+function activate(sign) {
+  activeSign.value = activeSign.value === sign ? null : sign
+}
 </script>
 
 <template>
@@ -120,32 +179,92 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="heading text-yellow mt-large">Selection Criteria</div>
-        <div class="selection-cards">
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Equity & Inclusion</div>
-            <div class="bottom">
-              Priority is given to under-resourced and under-represented youth collectives
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Strategic Issue Alignment</div>
-            <div class="bottom">
-              A clear, feasible campaign plan aligned with human rights focus areas
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Youth Ownership & Team Dynamic</div>
-            <div class="bottom">
-              Truly youth-led with a stable, committed core membership that cares for its community
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Openness To Learn</div>
-            <div class="bottom">Willingness to engage fully in a 9-month journey</div>
-          </div>
-        </div>
+        <div class="selection-criteria">
+          <div class="stars-overlay"></div>
 
+          <div class="left-align">
+            <div class="heading text-yellow">Selection Criteria</div>
+            <img
+              v-if="activeSign"
+              class="selection-bubble"
+              :src="bubbleImages[activeSign]"
+              alt="Selected criterion details"
+            />
+
+            <img
+              src="../../media/assets/chibi-blue-motivated.png"
+              class="chibi-blue-motivated"
+              alt=""
+            />
+
+            <img src="../../media/assets/trophy.png" class="trophy" alt="" />
+          </div>
+          <div class="right-align">
+            <div class="pole-container">
+              <img
+                src="../../media/assets/traffic-pole.png"
+                class="traffic-pole"
+                alt=""
+              />
+              <div class="left-buttons">
+                <button
+                  class="sign-button equity"
+                  :class="{ 'is-active': activeSign === 'equity' }"
+                  @click="activate('equity')"
+                >
+                  <img src="../../media/assets/sign-equity.png" class="base-img"/>
+                  <img src="../../media/assets/sign-equity-hover.png" class="hover-img"/>
+                  <img src="../../media/assets/sign-equity-active.png" class="active-img"/>
+                </button>
+
+                <button
+                  class="sign-button stratigic"
+                  :class="{ 'is-active': activeSign === 'stratigic' }"
+                  @click="activate('stratigic')"
+                >
+                  <img src="../../media/assets/sign-stratigic.png" class="base-img"/>
+                  <img src="../../media/assets/sign-stratigic-hover.png" class="hover-img"/>
+                  <img src="../../media/assets/sign-stratigic-active.png" class="active-img"/>
+                </button>
+              </div>
+
+              <div class="right-buttons">
+                
+                <button
+                  class="sign-button youth"
+                  :class="{ 'is-active': activeSign === 'youth' }"
+                  @click="activate('youth')"
+                >
+                  <img src="../../media/assets/sign-youth.png" class="base-img"/>
+                  <img src="../../media/assets/sign-youth-hover.png" class="hover-img"/>
+                  <img src="../../media/assets/sign-youth-active.png" class="active-img"/>
+                </button>
+
+                <button
+                  class="sign-button openness"
+                  :class="{ 'is-active': activeSign === 'openness' }"
+                  @click="activate('openness')"
+                >
+                  <img src="../../media/assets/sign-openness.png" class="base-img"/>
+                  <img src="../../media/assets/sign-openness-hover.png" class="hover-img"/>
+                  <img src="../../media/assets/sign-openness-active.png" class="active-img"/>
+                </button>
+
+                <button
+                  class="sign-button creative"
+                  :class="{ 'is-active': activeSign === 'creative' }"
+                  @click="activate('creative')"
+                >
+                  <img src="../../media/assets/sign-creative.png" class="base-img"/>
+                  <img src="../../media/assets/sign-creative-hover.png" class="hover-img"/>
+                  <img src="../../media/assets/sign-creative-active.png" class="active-img"/>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
         <div class="heading text-yellow mt-large">INCLUSION</div>
         <div class="accessibility-description text-light">
           We value community connection, clear intent, and readiness to learn together over
@@ -290,8 +409,6 @@ onMounted(() => {
   opacity: 0.6;
   pointer-events: none;
   z-index: 0;
-  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
-  will-change: transform;
 }
 
 .hero-skyline {
@@ -553,6 +670,265 @@ onMounted(() => {
   word-break: break-word;
 }
 
+/* selection criteria */
+
+.selection-criteria .left-align {
+  position: relative;
+  container-type: inline-size;
+  flex: 0 0 42%;
+  box-sizing: border-box;
+  height: clamp(360px, 42vw, 560px);
+  min-width: 0;
+  text-align: left;
+}
+
+.selection-criteria .left-align > .heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: clamp(1.25rem, 8cqi, 3.5rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-shadow:
+    2px 3px 0 rgba(0, 0, 0, 0.3),
+    0 0 8px #ffdf01,
+    0 0 20px rgba(255, 223, 1, 0.75) !important;
+  z-index: 1;
+}
+
+.selection-bubble {
+  position: absolute;
+  top: 35%;
+  left: 30%;
+  width: 80%;
+  max-height: 40%;
+  object-fit: contain;
+}
+
+.chibi-blue-motivated {
+  position: absolute;
+  bottom: 0;
+  left: 19%;
+  width: clamp(96px, 18vw, 210px);
+  max-width: 40%;
+  max-height: 38%;
+  object-fit: contain;
+  object-position: bottom left;
+}
+
+.trophy {
+  position: absolute;
+  bottom: 0;
+  right: 2%;
+  width: clamp(68px, 12vw, 140px);
+  max-width: 28%;
+  max-height: 32%;
+  object-fit: contain;
+  object-position: bottom right;
+  animation: trophy-float 2.4s ease-in-out infinite;
+}
+
+@keyframes trophy-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trophy {
+    animation: none;
+  }
+}
+.selection-criteria .right-align{
+  flex: 1 1 58%;
+  align-self: stretch;
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column; /* Allows vertical justification */
+  align-items: center;
+}
+
+.right-align .pole-container{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 845 / 1965;
+  transform: translateX(-50%);
+}
+
+.left-buttons,
+.right-buttons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sign-button{
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
+  pointer-events: auto;
+  background:none;
+  border: none;
+}
+.traffic-pole{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: block;
+  width: auto;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: contain;
+  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
+}
+
+
+.sign-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.equity {
+  top: 17%;
+  left: -38%;
+}
+
+.stratigic {
+  top: 37%;
+  left: -30%;
+}
+
+.youth {
+  top: 3%;
+  left: 65%;
+}
+
+.openness {
+  top: 22%;
+  left: 70%;
+}
+
+.creative {
+  top: 50%;
+  left: 69%;
+}
+.sign-button .hover-img, .sign-button .active-img{
+  opacity: 0;
+}
+
+.sign-button .hover-img{
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sign-button:hover .hover-img{
+  opacity: 1;
+}
+
+.sign-button .active-img{
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sign-button.is-active .active-img{
+  opacity: 1;
+  z-index: 2;
+}
+.selection-criteria{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; /* Stretches left and right panels to full height */
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  max-width: 1100px;
+  gap: clamp(32px, 5vw, 64px);
+  margin-top: 0;
+}
+.selection-criteria .stars-overlay{
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  background-image:
+    radial-gradient(1px 1px at 10% 10%, white 100%, transparent),
+    radial-gradient(1px 1px at 30% 50%, white 100%, transparent),
+    radial-gradient(2px 2px at 80% 20%, white 100%, transparent),
+    radial-gradient(1px 1px at 60% 80%, white 100%, transparent);
+  background-size: 200px 200px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
+  will-change: transform;
+}
+
+
+@media (max-width: 860px) {
+  .selection-criteria {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+  }
+
+  .selection-criteria .left-align {
+    flex: none;
+    width: 100%;
+    height: clamp(360px, 72vw, 500px);
+    align-items: center;
+    text-align: center;
+  }
+
+  .selection-criteria .left-align > .heading {
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .selection-bubble {
+    left: 50%;
+    width: min(80%, 500px);
+    transform: translateX(-50%);
+  }
+
+  .selection-criteria .right-align {
+    flex: none;
+    align-self: auto;
+    width: 100%;
+    position: relative;
+    height: clamp(320px, 65svh, 520px);
+    margin-top: 24px;
+  }
+
+  .right-align .pole-container {
+    bottom: 0;
+    width: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .message-tab {
     flex-direction: column;
@@ -562,6 +938,24 @@ onMounted(() => {
   }
   .accessibility-card {
     grid-template-columns: 1fr;
+  }
+  .selection-criteria .left-align {
+    height: clamp(340px, 92vw, 440px);
+  }
+
+  .selection-bubble {
+    width: 78%;
+    max-height: 38%;
+  }
+
+  .chibi-blue-motivated {
+    width: clamp(92px, 30vw, 145px);
+    max-width: 40%;
+  }
+
+  .trophy {
+    width: clamp(64px, 20vw, 100px);
+    max-width: 28%;
   }
 }
 
