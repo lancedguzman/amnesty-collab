@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import NavBar from './components/NavBar.vue'
 
+const activeTabIndex = ref(0)
+const tabNames = ['Requirements', 'Proposal', 'Mid-Project Journey', 'Funding']
+
 const faqData = ref([
   {
     category: 'APPLICATION REQUIREMENTS',
@@ -90,11 +93,11 @@ const faqData = ref([
       {
         question: 'What themes should our focus issue align with?',
         answer:
-          "Project proposals should be within the following themes and must have a tech element: Civic Engagement & Youth Activism, Freedom of Expression & Press Freedom, Climate Justice, Indigenous People's Rights, Anti-Discrimination & Inclusion, and Sexual and Reproductive Health and Rights.",
+          "Project proposals should be within the following themes and must have a tech element: Civic Engagement & Youth Activism: Protest safety for youth activists, digital rights, digital security, anti red-tagging/harassment. Freedom of Expression & Press Freedom: Campus journalism, youth media literacy, anti-disinformation. Climate Justice: Youth climate action, environmental defenders, climate education. Indigenous People's Rights: IP youth-led ancestral domain protection, cultural/heritage protection. Anti-Discrimination & Inclusion: Promotion of SOGIESC, gender equality, disability rights. Sexual and Reproductive Health and Rights: Anti-tech-facilitated gender-based violence, SRHR education.",
         isOpen: false,
       },
       {
-        question: "What does the 'Tech Element' requirement mean?",
+        question: 'What does the "Tech Element" requirement mean?',
         answer:
           'Your project proposal must integrate technology in one of two ways: 1. Addressing a digital rights issue (e.g., online harassment, data privacy, tech-facilitated violence, digital surveillance), OR 2. Using digital technology or platforms to address a human rights issue.',
         isOpen: false,
@@ -183,17 +186,6 @@ const faqData = ref([
       },
     ],
   },
-  {
-    category: 'HAVE MORE QUESTIONS?',
-    items: [
-      {
-        question: 'Where can we send additional inquiries?',
-        answer:
-          'For any inquiries not addressed in this guide, please email the Amnesty International Philippines youth team at cydphilippines@amnesty.org.ph.',
-        isOpen: false,
-      },
-    ],
-  },
 ])
 
 const toggleAccordion = (item) => {
@@ -204,20 +196,49 @@ const toggleAccordion = (item) => {
 <template>
   <NavBar />
   <div class="page-container">
+    <!-- Decorative Clouds -->
+    <img src="../../media/assets/cloud-1.png" class="cloud cloud-tl" alt="cloud" />
+    <img src="../../media/assets/cloud-3.png" class="cloud cloud-tr" alt="cloud" />
+    <img src="../../media/assets/cloud-3.png" class="cloud cloud-bl" alt="cloud" />
+
     <div class="content-wrapper">
-      <h1 class="page-title">Frequently Asked Questions</h1>
+      <h1 class="page-title">Frequently<br />Asked Questions</h1>
 
-      <div class="faq-container">
-        <div v-for="(section, index) in faqData" :key="index" class="faq-section">
-          <h2 class="yellow-heading">{{ section.category }}</h2>
-          <div v-for="(item, i) in section.items" :key="i" class="faq-item">
-            <button class="accordion-button" @click="toggleAccordion(item)">
-              <h3>{{ item.question }}</h3>
-              <span class="accordion-icon">{{ item.isOpen ? '−' : '+' }}</span>
+      <div class="faq-board">
+        <!-- Layered Backgrounds for the pixel shadow effect -->
+        <img src="../../media/assets/faqs-bg-darkblue.png" class="bg-layer shadow-layer" alt="" />
+        <img src="../../media/assets/faqs-bg-yellow.png" class="bg-layer yellow-layer" alt="" />
+
+        <!-- Interactive Board Content -->
+        <div class="board-inner">
+          <!-- Interactive HTML/CSS Tabs replacing the static image -->
+          <div class="tabs-container">
+            <button
+              v-for="(tab, index) in tabNames"
+              :key="index"
+              class="faq-tab"
+              :class="{ active: activeTabIndex === index }"
+              @click="activeTabIndex = index"
+            >
+              {{ tab }}
             </button>
+          </div>
 
-            <div class="accordion-content" v-show="item.isOpen">
-              <p>{{ item.answer }}</p>
+          <div class="blue-container">
+            <img src="../../media/assets/faqs-bg-blue.png" class="bg-layer blue-layer" alt="" />
+
+            <div class="questions-list">
+              <!-- Dynamically render the items array from the selected index -->
+              <div v-for="(item, i) in faqData[activeTabIndex].items" :key="i" class="faq-item">
+                <button class="accordion-button" @click="toggleAccordion(item)">
+                  <h3>{{ item.question.toUpperCase() }}</h3>
+                  <span class="accordion-icon">{{ item.isOpen ? '−' : '+' }}</span>
+                </button>
+
+                <div class="accordion-content" v-show="item.isOpen">
+                  <p>{{ item.answer }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -230,59 +251,153 @@ const toggleAccordion = (item) => {
 .page-container {
   box-sizing: border-box;
   min-height: calc(100vh - 76px);
+  position: relative;
   display: flex;
   justify-content: center;
-  padding: 64px clamp(24px, 6vw, 80px);
-  background: #092d5d;
-  color: #fff;
+  padding: 40px clamp(16px, 4vw, 40px) 100px;
+  background: linear-gradient(180deg, #ffffff 0%, #d8f0ff 30%, #44aaf9 100%);
+  overflow: hidden;
 }
+
+.cloud {
+  position: absolute;
+  z-index: 1;
+  image-rendering: pixelated;
+  opacity: 0.9;
+}
+.cloud-tl {
+  top: 50px;
+  left: 20px;
+  width: clamp(120px, 15vw, 200px);
+}
+.cloud-tr {
+  top: 250px;
+  right: 20px;
+  width: clamp(80px, 10vw, 150px);
+}
+.cloud-bl {
+  bottom: 80px;
+  left: 20px;
+  width: clamp(100px, 12vw, 180px);
+}
+
 .content-wrapper {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  width: min(100%, 900px);
+  gap: 16px;
+  width: min(100%, 800px);
 }
+
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(4rem, 4.5vw, 5rem);
-  color: #fff;
-  text-shadow: 3px 4px 0 #20a5fb;
-  margin: 0 0 2rem 0;
+  font-size: clamp(2rem, 3vw, 2rem);
+  color: #11335f;
+  margin: 0 0 1rem 0;
   text-align: center;
-  line-height: 0.8;
-  letter-spacing: 8px; /* Increased space between letters */
+  line-height: 1.2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-.faq-container {
+
+.faq-board {
+  position: relative;
   width: 100%;
+  margin-top: 10px;
 }
-.faq-section {
-  margin-bottom: 3rem;
-  background: #063c70;
-  border: 4px solid #fff;
-  padding: 2rem;
+.bg-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  image-rendering: pixelated;
 }
-.yellow-heading {
-  font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(2.5rem, 3.5vw, 3.5rem);
-  color: #fae11b;
-  text-shadow: 0 0 10px #fae11b;
-  margin: 0 0 1.5rem 0;
-  line-height: 0.8;
-  border-bottom: 2px solid #20a5fb;
-  padding-bottom: 1rem;
-  word-spacing: 0.75rem;
-  letter-spacing: 6px; /* Increased space between letters */
+.shadow-layer {
+  top: 12px;
+  left: 12px;
+  z-index: 1;
 }
+.yellow-layer {
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.board-inner {
+  position: relative;
+  z-index: 3;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* CSS implementation of the pixel tabs */
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: -4px;
+  position: relative;
+  z-index: 4;
+  padding-left: 12px;
+}
+
+.faq-tab {
+  background-color: #0b2f5c; /* Dark blue for inactive tabs */
+  color: #ffffff;
+  border: none;
+  font-family: 'Geist Pixel', 'ByteBounce', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.5rem);
+  font-weight: bold;
+  padding: 12px 20px 16px 20px;
+  cursor: pointer;
+  /* Simulating pixel corners with clip-path */
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%, 0 6px);
+  transition: background-color 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.faq-tab.active {
+  background-color: #2ea5fa; /* Matches the faqs-bg-blue background */
+  color: #ffffff;
+}
+
+.blue-container {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 300px;
+  padding: 16px;
+  margin-top: -2px;
+}
+.blue-layer {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.questions-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .faq-item {
-  margin-bottom: 1rem;
-  font-family: 'Geist Pixel', sans-serif;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 2px 16px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
 }
-.faq-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
+
 .accordion-button {
   display: flex;
   justify-content: space-between;
@@ -290,35 +405,37 @@ const toggleAccordion = (item) => {
   width: 100%;
   background: transparent;
   border: none;
-  padding: 1rem 0;
+  padding: 12px 0;
   cursor: pointer;
   text-align: left;
 }
-.accordion-button:hover h3,
-.accordion-button:hover .accordion-icon {
-  color: #fff;
-  text-shadow: 0 0 5px #fff;
-  transition: all 0.2s ease-in-out;
-}
+
 .faq-item h3 {
-  font-size: 1.25rem;
-  color: #fae11b;
+  font-family: 'Geist Pixel', 'ByteBounce', sans-serif;
+  font-size: clamp(1.5em, 2.2vw, 1.4rem);
+  color: #11335f;
   margin: 0;
   line-height: 1.3;
   padding-right: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
+
 .accordion-icon {
-  font-size: 1.75rem;
-  color: #fae11b;
+  font-size: 1.5rem;
+  color: #20a5fb;
   font-weight: bold;
 }
+
 .accordion-content {
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
 }
+
 .faq-item p {
+  font-family: 'Geist Pixel', sans-serif;
   line-height: 1.5;
-  color: #fff;
-  font-size: 1.125rem;
+  color: #333;
+  font-size: 1.5rem;
   margin: 0;
 }
 </style>
