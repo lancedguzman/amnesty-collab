@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router'
       <!-- Left Section: Characters & Bubble -->
       <div class="left-section">
         <!-- Moved glow directly behind the chibis -->
-        <img src="../../../media/assets/bg-light.jpg" class="bg-glow" alt="" />
+        <img src="../../../media/assets/bg-light.png" class="bg-glow" alt="" />
 
         <img
           src="../../../media/assets/chat_bubble.png"
