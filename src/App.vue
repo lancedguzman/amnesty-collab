@@ -9,7 +9,8 @@ const route = useRoute()
 <template>
   <NavBar />
   <RouterView />
-  <Footer v-if="route.path !== '/timeline'" />
+  <!-- Hide footer on both timeline and application pages -->
+  <Footer v-if="route.path !== '/timeline' && route.path !== '/application'" />
 </template>
 
 <style>

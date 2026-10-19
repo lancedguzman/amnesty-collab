@@ -1,72 +1,85 @@
 <template>
   <div class="page-container">
-    <div class="content-wrapper">
-      <!-- Updated header banner path -->
-      <div class="header-banner">
-        <img
-          src="../../media/assets/application-header.png"
-          alt="Digital Movers - Apply to Start"
-        />
-      </div>
+    <img
+      src="../../media/assets/digital-mover-logo.png"
+      alt="Digital Movers Logo"
+      class="overlay-logo-movers"
+    />
 
-      <h1 class="page-title">Digital Movers Application</h1>
-      <p class="intro-text">
-        Applications must be submitted online through our official application form.
-      </p>
+    <a
+      href="https://forms.cloud.microsoft/e/JERQfXvmLg"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="overlay-apply-link"
+    >
+      <img src="../../media/assets/apply-now-btn.png" alt="Apply Now" class="overlay-apply-btn" />
+    </a>
 
-      <div class="form-container">
-        <a
-          href="https://forms.cloud.microsoft/e/JERQfXvmLg"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="pixel-apply-btn"
-        >
-          Go to MS Form Application
-        </a>
-      </div>
-    </div>
+    <img
+      src="../../media/assets/amnesty-logo.png"
+      alt="Amnesty Logo"
+      class="overlay-logo-amnesty"
+    />
   </div>
 </template>
 
 <style scoped>
 .page-container {
   box-sizing: border-box;
-  min-height: calc(100vh - 76px);
+  min-height: calc(100vh - 76px); /* Adjust based on your nav height */
+  width: 100%; /* Ensures it spans the full width */
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 64px clamp(24px, 6vw, 80px);
-  background: #092d5d;
+  position: relative; /* Constrains absolutely positioned child images */
+
+  /* Background image properties to cover the entire container */
+  background-image: url('../../media/assets/application-page.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   color: #fff;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: min(100%, 800px);
-  text-align: center;
-}
-
-/* Header Banner styling */
-.header-banner {
-  width: 100%;
-  max-width: 800px;
-  border: 4px solid #fff;
-  box-shadow:
-    8px 8px 0 #063c70,
-    0 0 12px 3px rgba(255, 255, 255, 0.45);
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  line-height: 0;
-}
-
-.header-banner img {
-  width: 100%;
+/* Updated overlay image styles based on application-header.jpg layout */
+.overlay-logo-movers {
+  position: absolute;
+  top: 12%;
+  right: 15%;
+  width: clamp(350px, 135vw, 600px);
   height: auto;
-  display: block;
 }
 
+.overlay-apply-link {
+  position: absolute;
+  top: 58%;
+  right: 24%;
+  transform: translateY(-50%);
+  transition: transform 0.1s;
+}
+
+.overlay-apply-link:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.overlay-apply-btn {
+  width: clamp(150px, 20vw, 250px);
+  height: auto;
+}
+
+.overlay-logo-amnesty {
+  position: absolute;
+  bottom: 6%;
+  right: 4%;
+  width: clamp(120px, 15vw, 200px);
+  height: auto;
+  background-color: #ffffff; /* Added white background to match the reference */
+  padding: 8px 12px;
+}
+
+/* Original styles below */
 .page-title {
   font-family: 'ByteBounce', sans-serif;
   font-size: clamp(3rem, 4vw, 4.5rem);
@@ -74,14 +87,8 @@
   text-shadow: 2px 3px 0 #20a5fb;
   margin: 0 0 1rem 0;
   text-align: center;
-
-  /* Increase line-height to fix vertical overlapping */
   line-height: 1.1;
-
-  /* Add word-spacing to add horizontal space between words */
   word-spacing: 0.5rem;
-
-  /* Optional: Add letter-spacing if the letters themselves feel too tight */
   letter-spacing: 2px;
 }
 
@@ -91,6 +98,7 @@
   line-height: 1.4;
   color: #fff;
   margin: 0;
+  text-shadow: 1px 1px 2px #000;
 }
 
 .form-container {
