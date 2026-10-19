@@ -69,7 +69,10 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
             An Amnesty International Philippines Capacity-building and Seed Funding Program for
             Youth Organizations
           </div>
-          <RouterLink to="/application" id="apply-button">APPLY NOW!</RouterLink>
+          <!-- Replaced text with the apply-now-btn.png asset -->
+          <RouterLink to="/application" id="apply-button">
+            <img src="../../media/assets/apply-now-btn.png" alt="Apply Now!" />
+          </RouterLink>
         </div>
 
         <div id="right-align">
@@ -158,32 +161,33 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 
         <div class="s3-grass"></div>
       </div>
+    </div>
 
-      <div class="content-wrapper bottom-padding">
-        <div class="heading text-yellow mt-large">Selection Criteria</div>
-        <div class="selection-cards">
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Equity & Inclusion</div>
-            <div class="bottom">
-              Priority is given to under-resourced and under-represented youth collectives
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Strategic Issue Alignment</div>
-            <div class="bottom">
-              A clear, feasible campaign plan aligned with human rights focus areas
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Youth Ownership & Team Dynamic</div>
-            <div class="bottom">
-              Truly youth-led with a stable, committed core membership that cares for its community
-            </div>
-          </div>
-          <div class="items pixel-corners white-box">
-            <div class="top light-blue-box subheader-dark">Openness To Learn</div>
-            <div class="bottom">Willingness to engage fully in a 9-month journey</div>
-          </div>
+    <!-- SELECTION CRITERIA SECTION -->
+    <div class="section-panel section-criteria">
+      <div class="bg-container">
+        <img src="../../media/assets/selection-criteria-bg.png" class="bg-base" alt="" />
+        <img src="../../media/assets/bg-light.png" class="bg-light" alt="" />
+        <div class="stars-overlay-criteria"></div>
+      </div>
+
+      <div class="criteria-content">
+        <div class="title-container">
+          <h2 class="criteria-title text-yellow">Selection<br />Criteria</h2>
+        </div>
+
+        <div class="graphics-container">
+          <img
+            src="../../media/assets/chibi-motivated.png"
+            class="chibi"
+            alt="Motivated character"
+          />
+          <img src="../../media/assets/trophy.png" class="trophy" alt="Gold trophy" />
+          <img
+            src="../../media/assets/criteria-pole.png"
+            class="pole"
+            alt="Criteria signs on a pole"
+          />
         </div>
       </div>
     </div>
@@ -228,35 +232,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 .text-yellow {
   color: #ffdf01 !important;
   text-shadow: 2px 3px 0px rgba(0, 0, 0, 0.3) !important;
-}
-.subheader-dark {
-  color: #092d5d !important;
-  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
-  font-size: 1.5rem;
-}
-.mt-large {
-  margin-top: 4rem;
-}
-
-.pixel-corners {
-  clip-path: polygon(
-    4px 0,
-    calc(100% - 4px) 0,
-    100% 4px,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    4px 100%,
-    0 calc(100% - 4px),
-    0 4px
-  );
-}
-.white-box {
-  background: #fff;
-  color: #092d5d;
-}
-.light-blue-box {
-  background: #9addf7;
-  color: #092d5d;
 }
 
 .scrolling-container {
@@ -384,21 +359,18 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 
 #apply-button {
   display: inline-block;
-  padding: 15px 30px;
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: 1.25rem;
-  background: #ffdf01;
-  border: 4px solid #fff;
-  color: #000;
-  text-align: center;
-  text-decoration: none;
   cursor: pointer;
   transition: transform 0.1s;
 }
 
 #apply-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 0 #fff;
+}
+
+#apply-button img {
+  display: block;
+  width: clamp(180px, 25vw, 250px);
+  height: auto;
 }
 
 #right-align {
@@ -494,6 +466,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 
 /* Section 3 */
 .section3,
+.section-criteria,
 .section4 {
   position: relative;
   top: auto;
@@ -598,36 +571,118 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   z-index: 0;
 }
 
-.selection-cards {
-  display: flex;
-  gap: 24px;
+/* Section Criteria */
+.section-criteria {
+  z-index: 4;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.bg-container {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  overflow-x: auto;
-  padding-bottom: 10px;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
 }
-.selection-cards .items {
-  flex: 1;
-  min-width: 220px;
-  display: flex;
-  flex-direction: column;
+
+.bg-base {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.selection-cards .top {
-  padding: 16px;
-  text-align: center;
-  font-weight: bold;
+
+.bg-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  opacity: 0.5;
+  mix-blend-mode: screen;
 }
-.selection-cards .bottom {
-  padding: 16px;
-  text-align: center;
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: 1rem;
-  line-height: 1.4;
-  flex-grow: 1;
+
+.stars-overlay-criteria {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../media/assets/bg-stars.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+  animation: twinkleStars 5s ease-in-out infinite;
+}
+
+.criteria-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1200px);
+  height: 700px;
+  display: block;
+}
+
+.title-container {
+  position: absolute;
+  top: 15%;
+  left: -12%;
+  z-index: 2;
+}
+
+.criteria-title {
+  font-family: 'Arcade Bit', 'ByteBounce', sans-serif;
+  font-size: clamp(2.5rem, 3vw, 3rem);
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.graphics-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.chibi {
+  position: absolute;
+  left: 0%;
+  bottom: -8%;
+  height: clamp(300px, 35vw, 420px);
+  width: auto;
+  z-index: 3;
+}
+
+.trophy {
+  position: absolute;
+  left: 30%;
+  bottom: 32%;
+  height: clamp(120px, 15vw, 180px);
+  width: auto;
+  z-index: 2;
+  mix-blend-mode: screen;
+  animation: floatTrophy 3.5s ease-in-out infinite;
+}
+
+.pole {
+  position: absolute;
+  right: -12%;
+  bottom: -5%;
+  height: clamp(500px, 75vw, 750px);
+  width: auto;
+  z-index: 1;
 }
 
 /* Section 4 */
 .section4 {
-  z-index: 4;
+  z-index: 5;
   min-height: 0;
   padding-top: 50px;
   padding-bottom: clamp(200px, 26vw, 250px);
@@ -702,7 +757,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 }
 
 /* Tablet and mobile */
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .section1 {
     position: relative;
     top: auto;
@@ -766,13 +821,35 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
     max-width: 100%;
     flex-shrink: 0;
   }
+
+  .criteria-content {
+    height: 600px;
+  }
+
+  .title-container {
+    top: 10%;
+    left: 5%;
+  }
+
+  .chibi {
+    height: 300px;
+    left: 0%;
+  }
+
+  .trophy {
+    height: 140px;
+    left: 35%;
+    bottom: 40%;
+  }
+
+  .pole {
+    height: 600px;
+    right: 0%;
+    bottom: -5%;
+  }
 }
 
 @media (max-width: 767px) {
-  .mt-large {
-    margin-top: 1.5rem;
-  }
-
   .section3 {
     padding: 32px 16px 0;
   }
@@ -807,15 +884,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
     max-height: 62vh;
   }
 
-  .selection-cards {
-    flex-direction: column;
-    gap: 14px;
-    overflow: visible;
-  }
-  .selection-cards .items {
-    min-width: 0;
-  }
-
   .s3-cloud-1 {
     top: 260px;
     left: -20px;
@@ -827,6 +895,36 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   }
   .s3-grass {
     height: 50px;
+  }
+
+  .criteria-content {
+    height: 500px;
+  }
+
+  .title-container {
+    top: 10%;
+    left: 5%;
+  }
+
+  .criteria-title {
+    font-size: clamp(2.5rem, 8vw, 3rem);
+  }
+
+  .chibi {
+    height: 220px;
+    left: -5%;
+  }
+
+  .trophy {
+    height: 100px;
+    left: 38%;
+    bottom: 45%;
+  }
+
+  .pole {
+    height: 450px;
+    right: -15%;
+    bottom: -5%;
   }
 
   .section4 {
@@ -859,6 +957,29 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
     top: 300px;
     left: -24px;
     width: 120px;
+  }
+}
+
+/* Animations for Section Criteria */
+@keyframes floatTrophy {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes twinkleStars {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
 </style>

@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import NavBar from './components/NavBar.vue'
 
 const revealObserver =
   typeof IntersectionObserver !== 'undefined'
@@ -137,7 +136,6 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <NavBar />
   <div class="page-container">
     <div class="stars-overlay"></div>
     <div class="content-wrapper">
