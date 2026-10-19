@@ -49,7 +49,14 @@ function navigateToApply() {
 
 <template>
   <header class="nav-bar">
-    <div id="left-align"></div>
+    <div id="left-align">
+      <img
+        src="../../../media/assets/amnesty-logo.png"
+        alt="Amnesty International"
+        class="logo"
+        @click="navigateTo('Home')"
+      />
+    </div>
 
     <div id="right-align">
       <!-- Hamburger: only visible on small screens -->
@@ -71,7 +78,9 @@ function navigateToApply() {
         </button>
       </nav>
 
-      <button class="apply-button" @click="navigateToApply">APPLY</button>
+      <button class="apply-button" @click="navigateToApply">
+        <img src="../../../media/assets/apply-now-btn.png" alt="Apply Now" />
+      </button>
     </div>
   </header>
 </template>
@@ -85,14 +94,23 @@ function navigateToApply() {
   align-items: center;
   padding: 15px clamp(16px, 6vw, 80px);
   gap: 16px;
-  background: #ffffff; /* Changed from #000000 to white */
-  border-bottom: 4px solid #092d5d;
-  z-index: 99; /* Increased to stay above sticky sections */
+  background: #ffffff;
+  /* Updated border to a lighter blue to closer match the figma mockup layout */
+  border-bottom: 8px solid #8ecdf8;
+  z-index: 99;
 }
 
 #left-align {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: clamp(35px, 4vw, 55px);
+  cursor: pointer;
+  object-fit: contain;
 }
 
 #right-align {
@@ -117,7 +135,7 @@ function navigateToApply() {
   line-height: 1.4;
   text-transform: capitalize;
   white-space: nowrap;
-  color: #092d5d; /* Dark blue text */
+  color: #333333; /* Darkened to match the mockup */
   background-color: transparent;
   border: none;
   padding: 6px 8px;
@@ -125,30 +143,28 @@ function navigateToApply() {
 }
 
 .nav-buttons:hover {
-  color: #9addf7; /* Light blue hover */
+  color: #9addf7;
 }
 
 .apply-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px clamp(16px, 2.5vw, 30px);
-  font-family: 'Geist Pixel', sans-serif;
-  font-size: clamp(14px, 1.2vw + 6px, 18px);
-  white-space: nowrap;
-  color: #000000;
-  background: #fae11b;
-  border: 3px solid #fae11b;
-  box-shadow: 7px 7px 0px #ffffff;
+  padding: 0;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition:
-    transform 0.1s,
-    box-shadow 0.1s;
+  transition: transform 0.15s ease-in-out;
+}
+
+.apply-button img {
+  height: clamp(35px, 3.5vw, 45px);
+  object-fit: contain;
+  display: block;
 }
 
 .apply-button:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 4px 4px 0px #ffffff;
+  transform: scale(1.05);
 }
 
 .nav-buttons:focus-visible,
@@ -176,7 +192,7 @@ function navigateToApply() {
   display: block;
   height: 3px;
   width: 100%;
-  background: #092d5d; /* Changed from #ffffff to match dark blue text */
+  background: #092d5d;
 }
 
 /* Tablet: tighten spacing so all links still fit */
@@ -196,15 +212,12 @@ function navigateToApply() {
     gap: 12px;
   }
 
-  /* Reorder: APPLY first, then hamburger on the far right */
   .apply-button {
     order: 1;
-    box-shadow: 5px 5px 0px #ffffff;
   }
 
   .menu-toggle {
     order: 2;
-    /* stays above the panel so it can close it */
     position: relative;
     z-index: 2;
   }
@@ -246,14 +259,14 @@ function navigateToApply() {
     font-size: 18px;
     padding: 14px 0;
     border-bottom: 1px solid #333333;
+    color: #ffffff; /* Make links white on the dark mobile menu */
   }
 }
 
 /* Very small phones */
 @media (max-width: 380px) {
-  .apply-button {
-    padding: 8px 14px;
-    font-size: 14px;
+  .apply-button img {
+    height: 30px;
   }
 }
 </style>

@@ -1,12 +1,11 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import NavBar from './components/NavBar.vue'
 import confetti from 'canvas-confetti'
 
 const asset = (name) => new URL(`../../media/assets/${name}`, import.meta.url).href
 
 const altTexts = [
-  "Youth-Led: A Filipino group, organization, or collective whose members are primarily 25 years old and below",
+  'Youth-Led: A Filipino group, organization, or collective whose members are primarily 25 years old and below',
   'Defined Organizational Structure: consistent membership and leadership setup',
   'Dedicated Project Team: can delegate 3 to 5 young leaders (aged 15-24)',
   'Proven Experience: proven track record of running local projects or campaigns',
@@ -35,7 +34,7 @@ const onTouchStart = (e) => {
 }
 const onTouchEnd = (e) => {
   const dx = e.changedTouches[0].clientX - startX
-  if (Math.abs(dx) > 40) (dx < 0 ? next() : prev())
+  if (Math.abs(dx) > 40) dx < 0 ? next() : prev()
 }
 
 onMounted(() => {
@@ -56,8 +55,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
 </script>
 
 <template>
-  <NavBar />
-
   <div class="scrolling-container">
     <div class="section-panel section1">
       <div class="stars-overlay"></div>
@@ -100,7 +97,11 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
         alt=""
       />
       <div class="content-wrapper">
-        <img class="s2-logo" src="../../media/assets/logo-digital movers.png" alt="Digital Movers" />
+        <img
+          class="s2-logo"
+          src="../../media/assets/logo-digital movers.png"
+          alt="Digital Movers"
+        />
         <img
           class="s2-search"
           src="../../media/assets/textbox-search.png"
@@ -592,7 +593,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   width: 100vw;
   height: clamp(50px, 7vw, 100px);
   transform: translateX(-50%);
-  background: url('../../../media/assets/grass.png') bottom left / auto 100% repeat-x;
+  background: url('../../media/assets/grass.png') bottom left / auto 100% repeat-x;
   pointer-events: none;
   z-index: 0;
 }
