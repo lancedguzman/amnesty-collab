@@ -1,9 +1,6 @@
-<script setup>
-import NavBar from './components/NavBar.vue'
-</script>
+<script setup></script>
 
 <template>
-  <NavBar />
   <div class="page-container">
     <div class="stars-overlay"></div>
 

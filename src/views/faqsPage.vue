@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import NavBar from './components/NavBar.vue'
 
 const activeTabIndex = ref(0)
 const tabNames = ['Requirements', 'Proposal', 'Mid-Project Journey', 'Funding']
@@ -194,7 +193,6 @@ const toggleAccordion = (item) => {
 </script>
 
 <template>
-  <NavBar />
   <div class="page-container">
     <!-- Decorative Clouds -->
     <img src="../../media/assets/cloud-1.png" class="cloud cloud-tl" alt="cloud" />

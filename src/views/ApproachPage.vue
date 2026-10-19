@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import NavBar from './components/NavBar.vue'
 
 const data = ref({
   title: 'Revolutionizing Youth Engagement In the PH',
@@ -13,7 +12,6 @@ const data = ref({
 </script>
 
 <template>
-  <NavBar />
   <div class="page-container">
     <img class="ap-heart" src="../../media/assets/approach-heart.png" alt="" />
     <img class="ap-buildings" src="../../media/assets/approach-buildings.png" alt="" />
@@ -70,8 +68,10 @@ const data = ref({
   color: #fff;
   text-align: left;
   text-shadow:
-    -3px -3px 0 #092d5d, 3px -3px 0 #092d5d,
-    -3px 3px 0 #092d5d, 3px 3px 0 #092d5d,
+    -3px -3px 0 #092d5d,
+    3px -3px 0 #092d5d,
+    -3px 3px 0 #092d5d,
+    3px 3px 0 #092d5d,
     0 4px 0 #092d5d;
 }
 
@@ -150,8 +150,10 @@ const data = ref({
     font-size: clamp(1.1rem, 6.2vw, 2rem);
     line-height: 1.3;
     text-shadow:
-      -2px -2px 0 #092d5d, 2px -2px 0 #092d5d,
-      -2px 2px 0 #092d5d, 2px 2px 0 #092d5d,
+      -2px -2px 0 #092d5d,
+      2px -2px 0 #092d5d,
+      -2px 2px 0 #092d5d,
+      2px 2px 0 #092d5d,
       0 3px 0 #092d5d;
   }
 

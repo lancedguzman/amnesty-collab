@@ -1,13 +1,15 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import NavBar from './views/components/NavBar.vue'
 import Footer from './views/components/Footer.vue'
+
+const route = useRoute()
 </script>
 
 <template>
   <NavBar />
   <RouterView />
-  <Footer />
+  <Footer v-if="route.path !== '/timeline'" />
 </template>
 
 <style>
