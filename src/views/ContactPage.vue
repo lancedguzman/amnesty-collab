@@ -108,13 +108,14 @@
 
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(3rem, 4.5vw, 4.5rem);
+  font-size: clamp(2rem, 7vw, 4.5rem);
   color: #fff;
+  max-width: 100%;
   margin: 0;
   text-align: left;
-  line-height: 1.1;
-  letter-spacing: 12px;
-  word-spacing: 16px;
+  line-height: 1.3;
+  letter-spacing: clamp(2px, 0.8vw, 12px);
+  word-spacing: clamp(4px, 1vw, 16px);
 }
 
 .contact-box {
@@ -234,6 +235,7 @@
     overflow-y: auto;
     padding-top: 40px;
     padding-bottom: 0; /* Keeps it flush at the bottom on mobile too */
+    padding: 40px 10% 0 10%;
   }
 
   .content-wrapper {

@@ -291,13 +291,16 @@ const toggleAccordion = (item) => {
 
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(2rem, 3vw, 2rem);
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(1.5rem, 7vw, 4rem);
   color: #11335f;
   margin: 0 0 1rem 0;
   text-align: center;
   line-height: 1.2;
-  letter-spacing: 2px;
+  letter-spacing: clamp(0px, 0.2vw, 1px);
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .faq-board {

@@ -13,7 +13,9 @@ import { RouterLink } from 'vue-router'
       <!-- Left Section: Characters & Bubble -->
       <div class="left-section">
         <!-- Moved glow directly behind the chibis -->
-        <img src="../../../media/assets/bg-light.png" class="bg-glow" alt="" />
+        <div class="glow">
+          <img src="../../../media/assets/bg-light.png" class="bg-glow" alt="" />
+        </div>
 
         <img
           src="../../../media/assets/chat_bubble.png"
@@ -135,6 +137,8 @@ import { RouterLink } from 'vue-router'
   padding-top: clamp(40px, 8vw, 80px);
   font-family: 'Geist Pixel', sans-serif;
   color: #ffffff;
+  margin: 0;
+  
 }
 
 /* Background Implementation */
@@ -169,12 +173,20 @@ import { RouterLink } from 'vue-router'
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 clamp(24px, 6vw, 80px) 0;
+ 
 }
 
 /* Left Section */
 .left-section {
   position: relative;
   z-index: 1; /* Establishes a stacking context for the glow */
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .bg-glow {
@@ -188,7 +200,7 @@ import { RouterLink } from 'vue-router'
   mix-blend-mode: screen;
   opacity: 0.95;
   pointer-events: none;
-  z-index: -1; /* Forces glow behind the characters */
+  z-index: 0;
 }
 
 .chat-bubble {
