@@ -12,12 +12,19 @@
         <div class="contact-box">
           <p>Have questions or need assistance with your application?</p>
         </div>
+
       </div>
 
       <!-- Right Side: Traffic Pole and Signs -->
       <div class="right-panel">
         <div class="pole-container">
           <img src="../../media/assets/traffic-pole.png" alt="Traffic Pole" class="traffic-pole" />
+
+          <img 
+            src="../../media/assets/Envelope.png"
+            alt="Envelope"
+            class="envelope"
+          />
 
           <!-- Sign 1: FAQ Guide -->
           <router-link to="/faqs" class="sign-link sign-faq">
@@ -140,6 +147,17 @@
   position: relative;
   display: inline-block;
   height: 75vh;
+}
+
+.envelope {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 30%;
+  height: auto;
+  object-fit: contain;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .traffic-pole {

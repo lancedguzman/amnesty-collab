@@ -87,7 +87,8 @@ function navigateToApply() {
 
 <style>
 .nav-bar {
-  position: relative;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

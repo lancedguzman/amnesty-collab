@@ -1,6 +1,19 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import confetti from 'canvas-confetti'
+import bubbleEquity from '../../media/assets/bubble-equity.png'
+import bubbleStratigic from '../../media/assets/bubble-stratigic.png'
+import bubbleYouth from '../../media/assets/bubble-youth.png'
+import bubbleOpenness from '../../media/assets/bubble-openness.png'
+import bubbleCreative from '../../media/assets/bubble-creative.png'
+
+const bubbleImages = {
+  equity: bubbleEquity,
+  stratigic: bubbleStratigic,
+  youth: bubbleYouth,
+  openness: bubbleOpenness,
+  creative: bubbleCreative,
+}
 
 const asset = (name) => new URL(`../../media/assets/${name}`, import.meta.url).href
 
@@ -50,8 +63,52 @@ onMounted(() => {
     })
     localStorage.setItem('hasVisitedLandingPage', 'true')
   }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  window.addEventListener('scroll', updateScrollTarget, { passive: true })
+  updateScrollTarget()
+  scrollCurrent = scrollTarget
+  animateStars()
 })
-onBeforeUnmount(() => window.removeEventListener('resize', updateView))
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateScrollTarget)
+  cancelAnimationFrame(animationFrame)
+  document.documentElement.style.removeProperty('--bg-x')
+  document.documentElement.style.removeProperty('--bg-y')
+  document.documentElement.style.removeProperty('--bg-stretch')
+})
+
+const activeSign = ref(null)
+
+let scrollTarget = 0
+let scrollCurrent = 0
+let stretchSmooth = 0
+let animationFrame
+
+const updateScrollTarget = () => {
+  scrollTarget = window.scrollY
+}
+
+const animateStars = () => {
+  scrollCurrent += (scrollTarget - scrollCurrent) * 0.035
+
+  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+  const progress = Math.min(1, Math.max(0, scrollCurrent / maxScroll))
+  const velocity = scrollTarget - scrollCurrent
+  const stretchTarget = Math.min(0.05, Math.abs(velocity) * 0.0005)
+  stretchSmooth += (stretchTarget - stretchSmooth) * 0.06
+
+  const rootStyle = document.documentElement.style
+  rootStyle.setProperty('--bg-y', `${-progress * window.innerHeight * 0.2}px`)
+  rootStyle.setProperty('--bg-x', `${-progress * window.innerWidth * 0.08}px`)
+  rootStyle.setProperty('--bg-stretch', 1 + stretchSmooth)
+
+  animationFrame = requestAnimationFrame(animateStars)
+}
+
+function activate(sign) {
+  activeSign.value = activeSign.value === sign ? null : sign
+}
 </script>
 
 <template>
@@ -118,7 +175,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
       />
     </div>
 
-    <div class="section-panel section3">
+    <div class="section-panel section3" id="section3">
       <img class="s3-cloud s3-cloud-1" src="../../media/assets/cloud-1.png" alt="" />
       <img class="s3-cloud s3-cloud-2" src="../../media/assets/cloud-2.png" alt="" />
 
@@ -163,35 +220,87 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
       </div>
     </div>
 
-    <!-- SELECTION CRITERIA SECTION -->
-    <div class="section-panel section-criteria">
-      <div class="bg-container">
-        <img src="../../media/assets/selection-criteria-bg.png" class="bg-base" alt="" />
-        <img src="../../media/assets/bg-light.png" class="bg-light" alt="" />
-        <div class="stars-overlay-criteria"></div>
+    <!-- Selection criteria actual-->
+    <div class="section-panel section-criteria selection-criteria">
+            <img src="../../media/assets/bg-light.png" class="bg-light" alt="" />
+      <div class="stars-overlay"></div>
+
+      <div class="left-align">
+        <div class="heading text-yellow">Selection Criteria</div>
+        <img
+          v-if="activeSign"
+          class="selection-bubble"
+          :src="bubbleImages[activeSign]"
+          alt="Selected criterion details"
+        />
+
+        <img
+          src="../../media/assets/chibi-motivated.png"
+          class="chibi-blue-motivated"
+          alt=""
+        />
+
+        <img src="../../media/assets/trophy.png" class="trophy" alt="" />
       </div>
+      <div class="right-align">
+        <div class="pole-container">
+          <img src="../../media/assets/traffic-pole.png" class="traffic-pole" alt="" />
+          <div class="left-buttons">
+            <button
+              class="sign-button equity"
+              :class="{ 'is-active': activeSign === 'equity' }"
+              @click="activate('equity')"
+            >
+              <img src="../../media/assets/sign-equity.png" class="base-img" />
+              <img src="../../media/assets/sign-equity-hover.png" class="hover-img" />
+              <img src="../../media/assets/sign-equity-active.png" class="active-img" />
+            </button>
 
-      <div class="criteria-content">
-        <div class="title-container">
-          <h2 class="criteria-title text-yellow">Selection<br />Criteria</h2>
-        </div>
+            <button
+              class="sign-button stratigic"
+              :class="{ 'is-active': activeSign === 'stratigic' }"
+              @click="activate('stratigic')"
+            >
+              <img src="../../media/assets/sign-stratigic.png" class="base-img" />
+              <img src="../../media/assets/sign-stratigic-hover.png" class="hover-img" />
+              <img src="../../media/assets/sign-stratigic-active.png" class="active-img" />
+            </button>
+          </div>
 
-        <div class="graphics-container">
-          <img
-            src="../../media/assets/chibi-motivated.png"
-            class="chibi"
-            alt="Motivated character"
-          />
-          <img src="../../media/assets/trophy.png" class="trophy" alt="Gold trophy" />
-          <img
-            src="../../media/assets/criteria-pole.png"
-            class="pole"
-            alt="Criteria signs on a pole"
-          />
+          <div class="right-buttons">
+            <button
+              class="sign-button youth"
+              :class="{ 'is-active': activeSign === 'youth' }"
+              @click="activate('youth')"
+            >
+              <img src="../../media/assets/sign-youth.png" class="base-img" />
+              <img src="../../media/assets/sign-youth-hover.png" class="hover-img" />
+              <img src="../../media/assets/sign-youth-active.png" class="active-img" />
+            </button>
+
+            <button
+              class="sign-button openness"
+              :class="{ 'is-active': activeSign === 'openness' }"
+              @click="activate('openness')"
+            >
+              <img src="../../media/assets/sign-openness.png" class="base-img" />
+              <img src="../../media/assets/sign-openness-hover.png" class="hover-img" />
+              <img src="../../media/assets/sign-openness-active.png" class="active-img" />
+            </button>
+
+            <button
+              class="sign-button creative"
+              :class="{ 'is-active': activeSign === 'creative' }"
+              @click="activate('creative')"
+            >
+              <img src="../../media/assets/sign-creative.png" class="base-img" />
+              <img src="../../media/assets/sign-creative-hover.png" class="hover-img" />
+              <img src="../../media/assets/sign-creative-active.png" class="active-img" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
     <div class="section-panel section4">
       <img class="s4-cloud s4-cloud-1" src="../../media/assets/cloud-2.png" alt="" />
       <img class="s4-cloud s4-cloud-2" src="../../media/assets/cloud-1.png" alt="" />
@@ -303,8 +412,6 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   opacity: 0.6;
   pointer-events: none;
   z-index: 0;
-  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
-  will-change: transform;
 }
 
 .hero-skyline {
@@ -679,6 +786,264 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateView))
   width: auto;
   z-index: 1;
 }
+
+/* Selection criteria */
+
+.selection-criteria .left-align {
+  position: relative;
+  container-type: inline-size;
+  flex: 0 0 42%;
+  align-self: stretch;
+  box-sizing: border-box;
+  height: auto;
+  min-width: 0;
+  text-align: left;
+}
+
+.selection-criteria .left-align > .heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: clamp(1.25rem, 8cqi, 3.5rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-shadow: 2px 3px 0 rgba(0, 0, 0, 0.3) !important;
+  z-index: 1;
+}
+
+.selection-bubble {
+  position: absolute;
+  top: 35%;
+  right: 0;
+  width: 48%;
+  height: 30%;
+  object-fit: contain;
+}
+
+.chibi-blue-motivated {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 48%;
+  max-height: 80%;
+  object-fit: contain;
+  object-position: bottom left;
+  z-index: 3;
+}
+
+.selection-criteria .trophy {
+  position: absolute;
+  bottom: 5%;
+  left: 70%;
+   height: clamp(120px, 15vw, 180px);
+  max-width: 28%;
+  max-height: 32%;
+  object-fit: contain;
+  object-position: bottom right;
+  mix-blend-mode: normal;
+  animation: trophy-float 2.4s ease-in-out infinite;
+}
+
+@keyframes trophy-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trophy {
+    animation: none;
+  }
+}
+.selection-criteria .right-align {
+  flex: 1 1;
+  align-self: stretch;
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column; /* Allows vertical justification */
+  align-items: center;
+}
+
+.right-align .pole-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 845 / 1965;
+  transform: translateX(-50%);
+}
+
+.left-buttons,
+.right-buttons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sign-button {
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
+  pointer-events: auto;
+  background: none;
+  border: none;
+}
+.traffic-pole {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: block;
+  width: auto;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: contain;
+  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.4));
+}
+
+.sign-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.equity {
+  top: 17%;
+  left: -38%;
+}
+
+.stratigic {
+  top: 37%;
+  left: -30%;
+}
+
+.youth {
+  top: 3%;
+  left: 65%;
+}
+
+.openness {
+  top: 22%;
+  left: 70%;
+}
+
+.creative {
+  top: 50%;
+  left: 69%;
+}
+.sign-button .hover-img,
+.sign-button .active-img {
+  opacity: 0;
+}
+
+.sign-button .hover-img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sign-button:hover .hover-img {
+  opacity: 1;
+}
+
+.sign-button .active-img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sign-button.is-active .active-img {
+  opacity: 1;
+  z-index: 2;
+}
+.selection-criteria {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; /* Stretches left and right panels to full height */
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  
+  gap: clamp(32px, 5vw, 64px);
+  margin-top: 0;
+  padding-top: 5%;
+}
+.selection-criteria .stars-overlay {
+  position: absolute;
+  inset: -25vh -12vw;
+  background-image:
+    radial-gradient(1px 1px at 10% 10%, white 100%, transparent),
+    radial-gradient(1px 1px at 30% 50%, white 100%, transparent),
+    radial-gradient(2px 2px at 80% 20%, white 100%, transparent),
+    radial-gradient(1px 1px at 60% 80%, white 100%, transparent);
+  background-size: 200px 200px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scaleY(var(--bg-stretch, 1));
+  will-change: transform;
+}
+
+.selection-criteria .heading{
+  margin: 0 auto 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .selection-criteria {
+    flex-direction: column;
+    height: auto;
+    gap: 0;
+  }
+
+  .selection-criteria .left-align {
+    flex: none;
+    width: 100%;
+    height: clamp(360px, 55svh, 560px);
+    order: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .selection-criteria .left-align > .heading {
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .selection-criteria .right-align {
+    flex: none;
+    align-self: auto;
+    width: 100%;
+    position: relative;
+    height: clamp(320px, 65svh, 520px);
+    margin-top: 24px;
+    order: 1;
+  }
+
+  .right-align .pole-container {
+    bottom: 0;
+    width: auto;
+  }
+}
+
 
 /* Section 4 */
 .section4 {

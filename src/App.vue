@@ -7,7 +7,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <NavBar />
+  <NavBar class="navbar"/>
   <RouterView />
   <!-- Hide footer on both timeline and application pages -->
   <Footer v-if="route.path !== '/timeline' && route.path !== '/application'" />
@@ -36,4 +36,5 @@ body {
   margin: 0;
   background: #092d5d;
 }
+
 </style>
