@@ -7,10 +7,14 @@ const route = useRoute()
 </script>
 
 <template>
-  <NavBar />
-  <RouterView />
-  <!-- Hide footer on both timeline and application pages -->
-  <Footer v-if="route.path !== '/timeline' && route.path !== '/application'" />
+  <div class="app-layout">
+    <NavBar />
+    <main class="app-content">
+      <RouterView />
+    </main>
+    <!-- Hide footer on both timeline and application pages -->
+    <Footer class="footer" v-if="route.path !== '/timeline' && route.path !== '/application'" />
+  </div>
 </template>
 
 <style>
@@ -35,5 +39,23 @@ const route = useRoute()
 body {
   margin: 0;
   background: #092d5d;
+  padding: 0;
 }
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.app-content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
 </style>

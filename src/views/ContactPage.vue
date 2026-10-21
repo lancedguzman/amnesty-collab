@@ -12,12 +12,19 @@
         <div class="contact-box">
           <p>Have questions or need assistance with your application?</p>
         </div>
+
       </div>
 
       <!-- Right Side: Traffic Pole and Signs -->
       <div class="right-panel">
         <div class="pole-container">
           <img src="../../media/assets/traffic-pole.png" alt="Traffic Pole" class="traffic-pole" />
+
+          <img 
+            src="../../media/assets/Envelope.png"
+            alt="Envelope"
+            class="envelope"
+          />
 
           <!-- Sign 1: FAQ Guide -->
           <router-link to="/faqs" class="sign-link sign-faq">
@@ -101,13 +108,14 @@
 
 .page-title {
   font-family: 'ByteBounce', sans-serif;
-  font-size: clamp(3rem, 4.5vw, 4.5rem);
+  font-size: clamp(2rem, 7vw, 4.5rem);
   color: #fff;
+  max-width: 100%;
   margin: 0;
   text-align: left;
-  line-height: 1.1;
-  letter-spacing: 12px;
-  word-spacing: 16px;
+  line-height: 1.3;
+  letter-spacing: clamp(2px, 0.8vw, 12px);
+  word-spacing: clamp(4px, 1vw, 16px);
 }
 
 .contact-box {
@@ -140,6 +148,17 @@
   position: relative;
   display: inline-block;
   height: 75vh;
+}
+
+.envelope {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 30%;
+  height: auto;
+  object-fit: contain;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .traffic-pole {
@@ -216,6 +235,7 @@
     overflow-y: auto;
     padding-top: 40px;
     padding-bottom: 0; /* Keeps it flush at the bottom on mobile too */
+    padding: 40px 10% 0 10%;
   }
 
   .content-wrapper {
