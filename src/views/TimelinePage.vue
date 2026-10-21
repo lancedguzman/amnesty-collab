@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
 
       <div class="journey-header reveal" v-reveal>
         <h2>DIGITAL MOVERS JOURNEY</h2>
-        <p class="journey-dates">NOV 2026 - AUG 2027</p>
+        <p class="journey-dates">DEC 2026 - AUG 2027</p>
       </div>
 
       <section class="timeline-levels">
