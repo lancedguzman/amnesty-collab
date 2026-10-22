@@ -137,5 +137,12 @@
   .page-container {
     padding: 40px clamp(16px, 4vw, 32px);
   }
+
+  .overlay-logo-movers {
+    left: 50%;
+    right: auto;
+    width: min(90vw, 500px);
+    transform: translateX(-50%);
+  }
 }
 </style>
