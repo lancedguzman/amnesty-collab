@@ -889,8 +889,8 @@ function activate(sign) {
 
 .sign-button {
   position: absolute;
-  width: 80%;
-  height: 20%;
+  width: 100%;
+  height: 25%;
   box-sizing: border-box;
   padding: 0;
   display: flex;
@@ -926,28 +926,28 @@ function activate(sign) {
 }
 
 .equity {
-  top: 17%;
-  left: -38%;
+  top: 13%;
+  left: -55%;
 }
 
 .stratigic {
-  top: 37%;
-  left: -30%;
+  top: 30%;
+  left: -43%;
 }
 
 .youth {
-  top: 3%;
+  top: 0%;
   left: 65%;
 }
 
 .openness {
-  top: 22%;
-  left: 70%;
+  top: 20%;
+  left: 60%;
 }
 
 .creative {
-  top: 50%;
-  left: 69%;
+  top: 45%;
+  left: 60%;
 }
 .sign-button .hover-img,
 .sign-button .active-img {
@@ -1036,11 +1036,13 @@ function activate(sign) {
     height: clamp(320px, 65svh, 520px);
     margin-top: 24px;
     order: 1;
+  
   }
 
   .right-align .pole-container {
     bottom: 0;
     width: auto;
+    height: min(100%, 103vw);
   }
 }
 
@@ -1300,7 +1302,7 @@ function activate(sign) {
   }
   .s4-cards {
     grid-template-columns: 1fr;
-    width: 75%;
+    width: 100%;
     margin-top: 0;
     gap: 14px;
   }
