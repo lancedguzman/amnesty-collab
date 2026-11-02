@@ -171,7 +171,7 @@ function activate(sign) {
       <img
         class="s2-windows"
         src="../../media/assets/group1.png"
-        alt="Digital Movers is a capacity-building and seed funding program by Amnesty International Philippines (AIPH). We support Filipino youth-led groups and grassroots collectives to launch creative Human Rights Education (HRE) or campaign initiatives. Six youth collectives will start the journey together through online learning and a fully-funded national youth hackathon (Nov 2026 - Jan 2027). Following a pitch showcase at the youth hackathon, the Top 3 finalist groups will receive seed funding and mentorship to run their campaigns through August 2027."
+        alt="Digital Movers is a capacity-building and seed funding program by Amnesty International Philippines (AIPH). We support Filipino youth-led groups and grassroots collectives to launch creative Human Rights Education (HRE) or campaign initiatives. Six youth collectives will start the journey together through online learning and a fully-funded national youth ideathon (Dec 2026 - Feb 2027). Following a pitch showcase at the youth ideathon, the Top 3 finalist groups will receive seed funding and mentorship to run their campaigns through August 2027."
       />
     </div>
 
@@ -222,7 +222,7 @@ function activate(sign) {
 
     <!-- Selection criteria actual-->
     <div class="section-panel section-criteria selection-criteria">
-            <img src="../../media/assets/bg-light.png" class="bg-light" alt="" />
+      <img src="../../media/assets/bg-light.png" class="bg-light" alt="" />
       <div class="stars-overlay"></div>
 
       <div class="left-align">
@@ -234,11 +234,7 @@ function activate(sign) {
           alt="Selected criterion details"
         />
 
-        <img
-          src="../../media/assets/chibi-motivated.png"
-          class="chibi-blue-motivated"
-          alt=""
-        />
+        <img src="../../media/assets/chibi-motivated.png" class="chibi-blue-motivated" alt="" />
 
         <img src="../../media/assets/trophy.png" class="trophy" alt="" />
       </div>
@@ -458,7 +454,7 @@ function activate(sign) {
 
 #landing-description {
   font-family: 'Geist Pixel', sans-serif;
-  font-size: clamp(1.15rem, 1.9vw, 1.75rem);
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
   line-height: 1.5;
   color: #fff;
   max-width: 500px;
@@ -598,7 +594,7 @@ function activate(sign) {
   margin: 0 auto;
   max-width: 1000px;
   font-family: 'Geist Pixel', sans-serif;
-  font-size: clamp(1rem, 1.4vw, 2rem);
+  font-size: clamp(1.25rem, 1.8vw, 2.4rem);
   line-height: 1.3;
   color: #092d5d;
   text-align: center;
@@ -836,7 +832,7 @@ function activate(sign) {
   position: absolute;
   bottom: 5%;
   left: 70%;
-   height: clamp(120px, 15vw, 180px);
+  height: clamp(120px, 15vw, 180px);
   max-width: 28%;
   max-height: 32%;
   object-fit: contain;
@@ -979,7 +975,7 @@ function activate(sign) {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  
+
   gap: clamp(32px, 5vw, 64px);
   margin-top: 0;
   padding-top: 5%;
@@ -1000,7 +996,7 @@ function activate(sign) {
   will-change: transform;
 }
 
-.selection-criteria .heading{
+.selection-criteria .heading {
   margin: 0 auto 0 auto;
   text-align: center;
 }
@@ -1036,7 +1032,6 @@ function activate(sign) {
     height: clamp(320px, 65svh, 520px);
     margin-top: 24px;
     order: 1;
-  
   }
 
   .right-align .pole-container {
@@ -1045,7 +1040,6 @@ function activate(sign) {
     height: min(100%, 103vw);
   }
 }
-
 
 /* Section 4 */
 .section4 {
@@ -1068,7 +1062,7 @@ function activate(sign) {
   margin: 0;
   max-width: 900px;
   font-family: 'Geist Pixel', sans-serif;
-  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   line-height: 1.4;
   color: #fff;
   text-align: center;
